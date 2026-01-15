@@ -242,13 +242,13 @@ body {
   left: 50%;
   width: 0;
   height: 2px;
-  background: white;
+  background: #f093fb;
   transition: all 0.3s ease;
   transform: translateX(-50%);
 }
 
 .nav-links a:hover {
-  color: white;
+  color: #f093fb;
   
 }
 
