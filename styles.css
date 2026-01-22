@@ -1267,7 +1267,7 @@ body {
   }
 
   .semester-btn {
-    width: 100%;
+    width: 90%;
   }
 
   .section-header h3 {
@@ -1324,6 +1324,10 @@ body {
 
   .hero-title {
     font-size: 1.75rem;
+  }
+
+  .semester-btn {
+    width: 80%;
   }
 
   .calculator-section,
