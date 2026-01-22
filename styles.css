@@ -1264,6 +1264,8 @@ body {
 
   .semester-selector {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .semester-btn {
