@@ -39,9 +39,7 @@ body {
   position: relative;
 }
 
-/* ===========================
-   CUSTOM SCROLLBAR STYLES
-   =========================== */
+/* CUSTOM SCROLLBAR STYLES */
 
 /* Webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
@@ -102,9 +100,7 @@ body {
   background: white;
 }
 
-/* ===========================
-   HEADER STYLES
-   =========================== */
+/* HEADER STYLES */
 
 .header {
   position: fixed;
@@ -256,9 +252,7 @@ body {
   width: 70%;
 }
 
-/* ===========================
-   HERO SECTION
-   =========================== */
+/* HERO SECTION */
 
 .hero {
   position: relative;
@@ -447,6 +441,8 @@ body {
 .semester-btn:nth-child(2) { animation-delay: 0.2s; }
 .semester-btn:nth-child(3) { animation-delay: 0.3s; }
 .semester-btn:nth-child(4) { animation-delay: 0.4s; }
+.semester-btn:nth-child(5) { animation-delay: 0.5s; }
+.semester-btn:nth-child(6) { animation-delay: 0.6s; }
 
 .semester-btn:hover {
   background: rgba(255, 255, 255, 0.25);
@@ -498,9 +494,7 @@ body {
   }
 }
 
-/* ===========================
-   CALCULATOR SECTION
-   =========================== */
+/* CALCULATOR SECTION */
 
 .calculator-section {
   padding: 4rem 0;
@@ -858,9 +852,7 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* ===========================
-   RESULTS SECTION
-   =========================== */
+/* RESULTS SECTION */
 
 .results-section {
   padding: 4rem 0;
@@ -1053,9 +1045,7 @@ body {
   }
 }
 
-/* ===========================
-   FOOTER
-   =========================== */
+/* FOOTER */
 
 .footer {
   background: linear-gradient(135deg, var(--gray-900), var(--gray-800));
@@ -1215,9 +1205,7 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* ===========================
-   RESPONSIVE STYLES
-   =========================== */
+/* RESPONSIVE STYLES */
 
 @media (max-width: 768px) {
   .hamburger {
@@ -1356,9 +1344,7 @@ body {
   }
 }
 
-/* ===========================
-   PRINT STYLES
-   =========================== */
+/* PRINT STYLES */
 
 @media print {
   .header,
