@@ -49,7 +49,49 @@ const semesterData = {
       { unit: "UEF 7", module: "POO", coef: 4, credit: 4 },
       { unit: "UEF 7", module: "SINF", coef: 3, credit: 3 }
     ]
-  }
+  },
+  "1CS-S1": {
+  name: "1CS - Semester 1",
+  modules: [
+    // UEF 1.1
+    { unit: "UEF 1.1", module: "Système d'exploitation", coef: 3, credit: 5 },
+    { unit: "UEF 1.1", module: "Réseaux 1", coef: 2, credit: 4 },
+
+    // UEF 2.1
+    { unit: "UEF 2.1", module: "Bases de données", coef: 3, credit: 5 },
+    { unit: "UEF 2.1", module: "Génie logiciel", coef: 2, credit: 4 },
+
+    // UEM 1.1
+    { unit: "UEM 1.1", module: "Recherche Opérationnelle 1", coef: 2, credit: 3 },
+    { unit: "UEM 1.1", module: "Processus aléatoires & Files d’attente", coef: 2, credit: 3 },
+    { unit: "UEM 1.1", module: "Théorie des langages", coef: 2, credit: 3 },
+
+    // UET 1.1
+    { unit: "UET 1.1", module: "Anglais technique 1", coef: 1, credit: 3 }
+  ]
+},
+
+"1CS-S2": {
+  name: "1CS - Semester 2",
+  modules: [
+    // UEF 1.2
+    { unit: "UEF 1.2", module: "Architectures distribuées & Calcul intensif", coef: 2, credit: 4 },
+    { unit: "UEF 1.2", module: "Réseaux 2", coef: 2, credit: 4 },
+
+    // UEF 2.2
+    { unit: "UEF 2.2", module: "Intelligence Artificielle", coef: 3, credit: 5 },
+    { unit: "UEF 2.2", module: "Sécurité informatique", coef: 3, credit: 5 },
+
+    // UEM 1.2
+    { unit: "UEM 1.2", module: "Recherche Opérationnelle 2", coef: 2, credit: 3 },
+    { unit: "UEM 1.2", module: "Méthodes formelles", coef: 2, credit: 3 },
+    { unit: "UEM 1.2", module: "Analyse numérique", coef: 2, credit: 3 },
+
+    // UED 1.2
+    { unit: "UED 1.2", module: "Entrepreneuriat & Startup", coef: 1, credit: 3 }
+  ]
+}
+
 };
 
 // Global state
