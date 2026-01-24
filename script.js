@@ -1,7 +1,7 @@
 // Semester data
 const semesterData = {
   "1CP-S1": {
-    name: "1CP - Semester 1",
+    name: "1CP - 1st semester",
     modules: [
       { unit: "UEF 1", module: "ALSDS", coef: 5, credit: 6 },
       { unit: "UEF 1", module: "ARCH 1", coef: 4, credit: 5 },
@@ -14,7 +14,7 @@ const semesterData = {
     ]
   },
   "1CP-S2": {
-    name: "1CP - Semester 2",
+    name: "1CP - 2nd semester",
     modules: [
       { unit: "UEF 3", module: "ALSDD", coef: 5, credit: 6 },
       { unit: "UEF 3", module: "SYST 2", coef: 3, credit: 3 },
@@ -25,7 +25,7 @@ const semesterData = {
     ]
   },
   "2CP-S1": {
-    name: "2CP - Semester 1",
+    name: "2CP - 1st semester",
     modules: [
       { unit: "UEF 5", module: "SFSD", coef: 4, credit: 4 },
       { unit: "UEF 5", module: "ARCH 2", coef: 4, credit: 4 },
@@ -38,7 +38,7 @@ const semesterData = {
     ]
   },
   "2CP-S2": {
-    name: "2CP - Semester 2",
+    name: "2CP - 2nd semester",
     modules: [
       { unit: "UEF 8", module: "ANAL4", coef: 5, credit: 6 },
       { unit: "UEF 8", module: "LOGM", coef: 4, credit: 4 },
@@ -51,7 +51,7 @@ const semesterData = {
     ]
   },
   "1CS-S1": {
-  name: "1CS - Semester 1",
+  name: "1CS - 1st semester",
   modules: [
     // UEF 1.1
     { unit: "UEF 1.1", module: "Système d'exploitation", coef: 3, credit: 5 },
@@ -72,7 +72,7 @@ const semesterData = {
 },
 
 "1CS-S2": {
-  name: "1CS - Semester 2",
+  name: "1CS - 2nd semester",
   modules: [
     // UEF 1.2
     { unit: "UEF 1.2", module: "Architectures distribuées & Calcul intensif", coef: 2, credit: 4 },
