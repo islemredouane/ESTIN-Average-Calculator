@@ -423,7 +423,7 @@ body {
 }
 
 .semester-btn {
-  font-family: 'Quicksand';
+  font-family: 'Space Grotesk', sans-serif;
   padding: 1rem 2rem;
   border: 2px solid rgba(255, 255, 255, 0.4);
   background: rgba(255, 255, 255, 0.15);
@@ -790,7 +790,7 @@ body {
 }
 
 .btn {
-  font-family: 'Quicksand';
+  font-family: 'Space Grotesk', sans-serif;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
