@@ -60,8 +60,8 @@ body {
         }
 /* Table container scrollbar */
 .table-container::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 4px;
 }
 
 .table-container::-webkit-scrollbar-track {
