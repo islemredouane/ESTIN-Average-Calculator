@@ -53,7 +53,7 @@ body {
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background: #764ba2;
         }
         html {
             scroll-behavior: smooth;
@@ -70,13 +70,13 @@ body {
 }
 
 .table-container::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: #764ba2;
   border-radius: 8px;
   border: 1px solid var(--gray-50);
 }
 
 .table-container::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #5568d3 0%, #5f3a8a 50%, #e280f0 100%);
+  background: #764ba2;
 }
 
 .app {
