@@ -313,7 +313,7 @@ function updateModuleDisplay(moduleKey) {
 
 // Calculate module average
 function calculateModuleAverage(exam, td) {
-  return (exam * 0.67 + td * 0.33);
+  return (exam * 2 + td )/3;
 }
 
 // Calculate results
