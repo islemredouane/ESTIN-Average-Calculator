@@ -263,5 +263,25 @@
   </div>
 
   <script src="script.js"></script>
+  <script>
+    (function () {
+      if (window.va) return;
+
+      window.va = function (...params) {
+        window.vaq = window.vaq || [];
+        window.vaq.push(params);
+      };
+
+      var script = document.createElement("script");
+      script.src = "/_vercel/insights/script.js";
+      script.defer = true;
+      script.onerror = function () {
+        console.log(
+          "[Vercel Web Analytics] Failed to load script from /_vercel/insights/script.js. Be sure to enable Web Analytics for your project and deploy again."
+        );
+      };
+      document.head.appendChild(script);
+    })();
+  </script>
 </body>
 </html>
