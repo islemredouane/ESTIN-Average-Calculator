@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <!-- Dark inner background matching the logo container -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#2d1b69"/>
+      <stop offset="50%"  stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <!-- Gradient border: purple → pink → dark purple -->
+    <linearGradient id="bd" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#8b5cf6" stop-opacity="0.9"/>
+      <stop offset="50%"  stop-color="#ec4899" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#4c1d95" stop-opacity="0.5"/>
+    </linearGradient>
+    <!-- Subtle glow on icon -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Gradient border ring (1px = 2 units at this scale) -->
+  <rect width="100" height="100" rx="22" fill="url(#bd)"/>
+
+  <!-- Dark inner background -->
+  <rect x="2" y="2" width="96" height="96" rx="20" fill="url(#bg)"/>
+
+  <!--
+    Graduation cap path from Header.tsx:
+    M22 10v6  M6 12.5l6 3 6-3  M12 2 2 8l10 6 10-6-10-6z
+    Original viewBox: 0 0 24 24
+    Scale 3×, offset 14px → fills 72px centered in 100px
+  -->
+  <g transform="translate(14,14) scale(3)"
+     stroke="#c4b5fd"
+     stroke-width="1.6"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     fill="none"
+     filter="url(#glow)">
+    <path d="M22 10v6M6 12.5l6 3 6-3M12 2 2 8l10 6 10-6-10-6z"/>
+  </g>
+</svg>
