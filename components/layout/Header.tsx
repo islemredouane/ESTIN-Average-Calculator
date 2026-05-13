@@ -33,16 +33,14 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <div className="p-px rounded-xl bg-gradient-to-br from-purple-500/70 via-pink-500/40 to-purple-900/30">
               <div className="w-9 h-9 rounded-[11px] bg-gradient-to-br from-purple-950 via-slate-900 to-slate-950 flex items-center justify-center">
-                <svg
-                  className="w-5 h-5 text-purple-300"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M22 10v6M6 12.5l6 3 6-3M12 2 2 8l10 6 10-6-10-6z" />
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <defs>
+                    <linearGradient id="hSigma" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#ddd6fe" />
+                      <stop offset="100%" stopColor="#fbcfe8" />
+                    </linearGradient>
+                  </defs>
+                  <polyline points="19,4 5,4 15,12 5,20 19,20" stroke="url(#hSigma)" strokeWidth="2.25" />
                 </svg>
               </div>
             </div>
