@@ -22,7 +22,9 @@ export const semesterData: SemesterData = {
       { unit: 'UEF 4', module: 'ANA 2', coef: 5, credit: 6 },
       { unit: 'UEF 4', module: 'ALG 2', coef: 3, credit: 4 },
       { unit: 'UEM 1', module: 'MECA', coef: 3, credit: 3 },
+      { unit: 'UEM 1', module: 'ELEF 1', coef: 4, credit: 4 },
       { unit: 'UET', module: 'TEO', coef: 2, credit: 2 },
+      { unit: 'UET', module: 'ANG 1', coef: 2, credit: 2 },
     ],
   },
   '2CP-S1': {
