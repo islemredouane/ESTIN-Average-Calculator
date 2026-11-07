@@ -11,7 +11,8 @@ export const semesterData: SemesterData = {
       { unit: 'UEF 2', module: 'ALG 1', coef: 3, credit: 3 },
       { unit: 'UEF 2', module: 'ELECT', coef: 3, credit: 4 },
       { unit: 'UET', module: 'TEE', coef: 2, credit: 2 },
-      { unit: 'UED', module: 'BTW', coef: 1, credit: 1 },
+      { unit: 'UET', module: 'ANG 1', coef: 2, credit: 2 },
+      { unit: 'UED', module: 'HIST', coef: 1, credit: 1 },
     ],
   },
   '1CP-S2': {
@@ -24,7 +25,6 @@ export const semesterData: SemesterData = {
       { unit: 'UEM 1', module: 'MECA', coef: 3, credit: 3 },
       { unit: 'UEM 1', module: 'ELEF 1', coef: 4, credit: 4 },
       { unit: 'UET', module: 'TEO', coef: 2, credit: 2 },
-      { unit: 'UET', module: 'ANG 1', coef: 2, credit: 2 },
     ],
   },
   '2CP-S1': {
