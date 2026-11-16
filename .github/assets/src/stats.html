@@ -1,0 +1,138 @@
+<!doctype html>
+<!-- ESTIN Average Calculator "By the numbers" card.
+     Rendered to ../stats.webp by scripts/render-readme-assets.py (1280x300 at 2x). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-base: #030712;
+    --bg-surface: #0d1117;
+    --bg-elevated: #161b22;
+    --purple: #8b5cf6;
+    --pink: #ec4899;
+    --blue: #60a5fa;
+    --emerald: #10b981;
+    --silver: #e2e8f0;
+    --silver-muted: #94a3b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1280px; height: 300px; background: transparent; }
+
+  .card {
+    position: relative; width: 1280px; height: 300px; border-radius: 24px; overflow: hidden; padding: 34px 40px;
+    background: var(--bg-base); border: 1px solid rgba(139, 92, 246, 0.22);
+    font-family: 'Inter', system-ui, sans-serif; color: #fff;
+    box-shadow: 0 30px 70px rgba(3, 7, 18, 0.9);
+  }
+
+  /* Ambient glowing halos */
+  .glow {
+    position: absolute; width: 500px; height: 500px; right: -80px; top: -250px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.24) 0%, transparent 70%); pointer-events: none;
+  }
+  .glow-left {
+    position: absolute; width: 400px; height: 400px; left: -80px; bottom: -200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.16) 0%, transparent 70%); pointer-events: none;
+  }
+
+  .dots {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(139, 92, 246, 0.18) 1.2px, transparent 1.2px);
+    background-size: 26px 26px;
+  }
+
+  .head { position: relative; z-index: 2; display: flex; align-items: baseline; justify-content: space-between; }
+  .head h2 {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: -0.02em; color: #FFFFFF;
+  }
+  .head h2 span {
+    background: linear-gradient(135deg, #c084fc, #f472b6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .head .badge {
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px;
+    background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.35);
+    border-radius: 9999px; color: #d8b4fe; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .head .badge .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 8px var(--emerald);
+  }
+
+  .grid {
+    position: relative; z-index: 2; display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; margin-top: 24px;
+  }
+  .tile {
+    padding: 22px 18px; border-radius: 14px;
+    background: rgba(13, 17, 23, 0.75); border: 1px solid rgba(148, 163, 184, 0.14);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  }
+  .tile.hot {
+    background: rgba(139, 92, 246, 0.14);
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 24px rgba(139, 92, 246, 0.22);
+  }
+  .tile b {
+    display: block; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 42px; line-height: 1;
+    letter-spacing: -0.03em; color: #FFFFFF;
+  }
+  .tile.hot b { color: #d8b4fe; }
+  .tile span {
+    display: block; margin-top: 10px; color: var(--silver); font-size: 13px; font-weight: 600; line-height: 1.35;
+  }
+  .tile small {
+    display: block; margin-top: 4px; color: var(--silver-muted); font-size: 11px; font-weight: 600;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="glow"></div>
+    <div class="glow-left"></div>
+    <div class="dots"></div>
+
+    <div class="head">
+      <h2>By the <span>numbers</span></h2>
+      <div class="badge"><span class="dot"></span>ESTIN BÉJAÏA · ACADEMIC ENGINE</div>
+    </div>
+
+    <div class="grid">
+      <div class="tile hot">
+        <b>10</b>
+        <span>Semesters</span>
+        <small>1CP · 2CP · 1CS · 2CS</small>
+      </div>
+      <div class="tile">
+        <b>76</b>
+        <span>Curricular Modules</span>
+        <small>All Specialities</small>
+      </div>
+      <div class="tile hot">
+        <b>30</b>
+        <span>ECTS Target</span>
+        <small>Per Semester Cap</small>
+      </div>
+      <div class="tile">
+        <b>100%</b>
+        <span>Exact Syllabus</span>
+        <small>Official Weights</small>
+      </div>
+      <div class="tile hot">
+        <b>0 ms</b>
+        <span>Reactive Math</span>
+        <small>Real-Time Engine</small>
+      </div>
+      <div class="tile">
+        <b>∞</b>
+        <span>Persistence</span>
+        <small>Zustand / LocalStorage</small>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<!-- ESTIN Average Calculator README Preview: Desktop App + Mobile Interface.
+     Rendered to .github/assets/preview.webp by scripts/render-readme-assets.py -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-base: #030712;
+    --bg-surface: #0d1117;
+    --bg-elevated: #161b22;
+    --purple: #8b5cf6;
+    --pink: #ec4899;
+    --blue: #60a5fa;
+    --emerald: #10b981;
+    --silver: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1280px; height: 740px; background: transparent; }
+
+  .stage {
+    position: relative; width: 1280px; height: 740px; border-radius: 24px; overflow: hidden;
+    background: radial-gradient(circle at 20% 25%, rgba(139, 92, 246, 0.28), transparent 55%),
+                radial-gradient(circle at 85% 80%, rgba(236, 72, 153, 0.18), transparent 50%),
+                var(--bg-base);
+    border: 1px solid rgba(139, 92, 246, 0.22);
+  }
+
+  .stage::after {
+    content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(139, 92, 246, 0.2) 1.2px, transparent 1.2px);
+    background-size: 26px 26px; pointer-events: none;
+  }
+
+  /* Desktop Browser Mockup */
+  .browser {
+    position: absolute; left: 50px; top: 60px; width: 930px; border-radius: 14px; overflow: hidden; z-index: 1;
+    background: var(--bg-surface); border: 1px solid rgba(139, 92, 246, 0.28);
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.9), 0 0 60px rgba(139, 92, 246, 0.2);
+  }
+  .bar {
+    height: 42px; display: flex; align-items: center; gap: 8px; padding: 0 18px;
+    background: var(--bg-elevated); border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .bar i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+  .bar i:nth-child(1) { background: #ff5f57; }
+  .bar i:nth-child(2) { background: #febc2e; }
+  .bar i:nth-child(3) { background: #28c840; }
+  .url {
+    margin-left: 20px; flex: 1; height: 26px; border-radius: 6px;
+    background: var(--bg-base); border: 1px solid rgba(139, 92, 246, 0.2);
+    color: #a78bfa; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+    padding: 0 14px; display: flex; align-items: center; gap: 8px; letter-spacing: 0.02em;
+  }
+  .url svg { width: 12px; height: 12px; fill: var(--emerald); }
+  .url b { color: #FFFFFF; font-weight: 600; }
+  .browser img { display: block; width: 100%; height: 550px; object-fit: cover; object-position: top; }
+
+  /* Mobile Phone Mockup */
+  .phone {
+    position: absolute; right: 55px; top: 35px; width: 310px; height: 660px;
+    border-radius: 46px; padding: 10px; z-index: 2;
+    background: #000; border: 1px solid rgba(139, 92, 246, 0.35);
+    box-shadow: 0 45px 100px rgba(0, 0, 0, 0.95), 0 0 0 5px var(--bg-elevated), 0 0 60px rgba(139, 92, 246, 0.25);
+  }
+  .phone .screen {
+    position: relative; width: 100%; height: 100%; border-radius: 38px; overflow: hidden; background: var(--bg-base);
+  }
+  .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .dynamic-island {
+    position: absolute; left: 50%; top: 10px; transform: translateX(-50%);
+    width: 90px; height: 24px; border-radius: 999px; background: #000; z-index: 3;
+  }
+  .home-indicator {
+    position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%);
+    width: 120px; height: 4px; border-radius: 999px; background: rgba(255, 255, 255, 0.3); z-index: 3;
+  }
+</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="browser">
+      <div class="bar">
+        <i></i><i></i><i></i>
+        <div class="url">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          https://<b>estin-average-calculator.vercel.app</b>
+        </div>
+      </div>
+      <img src="shots/desktop.png" alt="ESTIN Average Calculator Desktop View">
+    </div>
+    <div class="phone">
+      <div class="screen">
+        <div class="dynamic-island"></div>
+        <img src="shots/mobile.png" alt="ESTIN Average Calculator Mobile View">
+        <div class="home-indicator"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
