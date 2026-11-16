@@ -1,0 +1,213 @@
+<!doctype html>
+<!-- ESTIN Average Calculator README Banner.
+     Rendered to ../banner.webp by scripts/render-readme-assets.py (1280x440 at 2x). -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-base: #030712;
+    --bg-surface: #0d1117;
+    --bg-elevated: #161b22;
+    --purple: #8b5cf6;
+    --pink: #ec4899;
+    --blue: #60a5fa;
+    --emerald: #10b981;
+    --silver: #e2e8f0;
+    --silver-muted: #94a3b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1280px; height: 440px; background: transparent; }
+
+  .banner {
+    position: relative; width: 1280px; height: 440px; border-radius: 24px; overflow: hidden;
+    background: var(--bg-base); border: 1px solid rgba(139, 92, 246, 0.22);
+    font-family: 'Inter', system-ui, sans-serif; color: #fff;
+    box-shadow: 0 40px 100px rgba(3, 7, 18, 0.95);
+  }
+
+  /* Ambient glowing cosmic auras */
+  .glow-a {
+    position: absolute; width: 620px; height: 620px; right: 180px; top: -200px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.32) 0%, transparent 68%); pointer-events: none;
+  }
+  .glow-b {
+    position: absolute; width: 500px; height: 500px; left: -100px; bottom: -180px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, transparent 65%); pointer-events: none;
+  }
+  .glow-c {
+    position: absolute; width: 440px; height: 440px; right: -80px; bottom: -120px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.22) 0%, transparent 65%); pointer-events: none;
+  }
+
+  /* Dot Grid overlay */
+  .dots {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(139, 92, 246, 0.22) 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+  }
+
+  .content {
+    position: absolute; left: 70px; top: 0; bottom: 0; display: flex; flex-direction: column;
+    justify-content: center; max-width: 680px; z-index: 2;
+  }
+
+  .badge-row {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px;
+    background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.4);
+    border-radius: 9999px; color: #d8b4fe; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .badge .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 10px var(--emerald);
+  }
+  .school-tag {
+    color: var(--silver-muted); font-size: 12px; font-family: 'JetBrains Mono', monospace; font-weight: 500;
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 52px; font-weight: 800; line-height: 1.08;
+    letter-spacing: -0.03em; color: #ffffff; margin-bottom: 14px;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #c084fc 0%, #f472b6 50%, #60a5fa 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  p.tagline {
+    font-size: 17px; line-height: 1.5; color: var(--silver-muted); margin-bottom: 26px; font-weight: 400;
+  }
+  p.tagline b { color: #f8fafc; font-weight: 600; }
+
+  .chips {
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .chip {
+    padding: 6px 12px; border-radius: 8px; background: rgba(22, 27, 34, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.16); color: #cbd5e1; font-size: 12px; font-weight: 500;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .chip svg { width: 14px; height: 14px; fill: currentColor; }
+
+  /* Right floating showcase card */
+  .card-wrap {
+    position: absolute; right: 70px; top: 50%; transform: translateY(-50%);
+    width: 440px; z-index: 2;
+  }
+  .hud-card {
+    background: rgba(13, 17, 23, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.35); border-radius: 20px; padding: 26px 28px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 50px rgba(139, 92, 246, 0.18);
+  }
+  .hud-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 14px;
+  }
+  .hud-sem {
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; color: #fff;
+  }
+  .hud-status {
+    padding: 4px 10px; border-radius: 9999px; background: rgba(16, 185, 129, 0.14);
+    border: 1px solid rgba(16, 185, 129, 0.35); color: #34d399; font-size: 11px;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  .hud-score-row {
+    display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px;
+  }
+  .hud-label {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--silver-muted); font-weight: 600;
+  }
+  .hud-score {
+    font-family: 'Space Grotesk', sans-serif; font-size: 38px; font-weight: 800; color: #34d399;
+    line-height: 1; letter-spacing: -0.02em;
+  }
+  .hud-score small { font-size: 18px; color: var(--silver-muted); font-weight: 600; }
+
+  .hud-bar-bg {
+    width: 100%; height: 8px; border-radius: 9999px; background: rgba(255, 255, 255, 0.08);
+    overflow: hidden; margin-bottom: 18px;
+  }
+  .hud-bar-fill {
+    width: 100%; height: 100%; border-radius: 9999px;
+    background: linear-gradient(90deg, #10b981, #34d399);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+  }
+
+  .hud-stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  .hud-stat-box {
+    background: rgba(22, 27, 34, 0.6); border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px; padding: 10px 14px;
+  }
+  .hud-stat-box b {
+    display: block; font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #fff;
+  }
+  .hud-stat-box span {
+    font-size: 11px; color: var(--silver-muted); font-weight: 500;
+  }
+</style>
+</head>
+<body>
+  <div class="banner">
+    <div class="glow-a"></div>
+    <div class="glow-b"></div>
+    <div class="glow-c"></div>
+    <div class="dots"></div>
+
+    <div class="content">
+      <div class="badge-row">
+        <div class="badge"><span class="dot"></span>ESTIN BÉJAÏA · 2026</div>
+        <span class="school-tag">École Supérieure en Informatique</span>
+      </div>
+
+      <h1>ESTIN <span class="gradient-text">Average Calculator</span></h1>
+
+      <p class="tagline">
+        The deterministic academic progression platform for <b>ESTIN students</b>.  
+        Instant weighted computations, 3D spatial canvas, and zero-loss local state.
+      </p>
+
+      <div class="chips">
+        <div class="chip">✦ 10 Semesters (1CP → 2CS)</div>
+        <div class="chip">⚖️ Official Coefs & Credits</div>
+        <div class="chip">⚡ Real-Time Math</div>
+        <div class="chip">🌌 3D R3F Canvas</div>
+      </div>
+    </div>
+
+    <div class="card-wrap">
+      <div class="hud-card">
+        <div class="hud-header">
+          <div class="hud-sem">1CP — Semester 1</div>
+          <div class="hud-status">Validated</div>
+        </div>
+        <div class="hud-score-row">
+          <div class="hud-label">General Average</div>
+          <div class="hud-score">15.82<small> / 20</small></div>
+        </div>
+        <div class="hud-bar-bg">
+          <div class="hud-bar-fill"></div>
+        </div>
+        <div class="hud-stats-grid">
+          <div class="hud-stat-box">
+            <b>30 / 30</b>
+            <span>ECTS Credits</span>
+          </div>
+          <div class="hud-stat-box">
+            <b>28 Coefs</b>
+            <span>9 Modules Grouped</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
