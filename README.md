@@ -33,7 +33,6 @@ Engineered with real-time mathematical validation, interactive 3D spatial graphi
 [**System Architecture**](#-system-architecture) &nbsp;✦&nbsp;
 [**Visual Identity**](#-visual-identity--design-tokens) &nbsp;✦&nbsp;
 [**Project Structure**](#-project-structure) &nbsp;✦&nbsp;
-[**Getting Started**](#-getting-started) &nbsp;✦&nbsp;
 [**The Author**](#-the-author--leadership)
 
 </div>
@@ -341,62 +340,6 @@ ESTIN-Average-Calculator/
 ├── next.config.js                    # Next.js production build configuration
 └── package.json                      # Dependencies and npm automation scripts
 ```
-
-<br>
-
----
-
-## ✦ Getting Started
-
-### Prerequisites
-
-* **Node.js:** `v18.17.0` or higher
-* **Package Manager:** `npm` (or `pnpm` / `yarn`)
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/islemredouane/ESTIN-Average-Calculator.git
-   cd ESTIN-Average-Calculator
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Start local development server:**
-   ```bash
-   npm run dev
-   ```
-   Open [http://localhost:3001](http://localhost:3001) in your browser.
-
-### Building for Production
-
-Compile and generate an optimized standalone build:
-
-```bash
-npm run build
-npm start
-```
-
-### Deployment
-
-The repository is tailored for **Vercel**:
-1. Push your changes to `main`.
-2. Connect your repository on [vercel.com](https://vercel.com).
-3. The platform auto-detects Next.js 14 and deploys instantly with edge acceleration and Vercel Analytics enabled.
-
-<details>
-<summary><b>Maintaining README visual assets</b></summary>
-<br>
-
-The banner, numbers card, and device preview mockups are generated from source HTML templates in `.github/assets/src/`:
-1. Edit `.github/assets/src/banner.html`, `stats.html`, or `preview.html`.
-2. Run `python scripts/render-readme-assets.py`: it captures fresh screenshots from the live deployment, renders the cards in headless Edge/Chrome at 2× with transparent backgrounds, and generates optimized WebP assets in `.github/assets/` (`banner.webp`, `stats.webp`, `preview.webp`).
-
-</details>
 
 <br>
 
