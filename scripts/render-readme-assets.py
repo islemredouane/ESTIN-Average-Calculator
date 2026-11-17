@@ -2,18 +2,11 @@
 
 Usage:
     python scripts/render-readme-assets.py
-
-Steps:
-1. Captures live screenshots from https://estin-average-calculator.vercel.app:
-   - Desktop homepage (1440x900 at 2x)
-   - Mobile homepage (390x844 at 2x)
-2. Renders .github/assets/src/{banner,stats,preview}.html at 2x with transparent background.
-3. Generates optimized WebP assets in .github/assets/:
-   - banner.webp (1760px wide)
-   - stats.webp (1760px wide)
-   - preview.webp (1760px wide)
 """
+import asyncio
+import base64
 import http.server
+import json
 import os
 import shutil
 import socketserver
@@ -22,14 +15,17 @@ import sys
 import tempfile
 import threading
 import time
+import urllib.request
 from pathlib import Path
 from PIL import Image
+import websockets
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / ".github" / "assets" / "src"
 SHOTS = SRC / "shots"
 OUT = ROOT / ".github" / "assets"
 PORT = 5533
+DEBUG_PORT = 9228
 LIVE_URL = "https://estin-average-calculator.vercel.app"
 
 CANDIDATES = [
@@ -65,7 +61,60 @@ def start_server() -> socketserver.TCPServer:
     return httpd
 
 
-def shoot(url: str, out: Path, width: int, height: int, transparent: bool = False, mobile: bool = False, delay_ms: int = 5000) -> None:
+async def capture_cdp(url: str, out_png: Path, width: int, height: int, mobile: bool = False, wait_sec: int = 6):
+    browser = find_browser()
+    with tempfile.TemporaryDirectory() as profile:
+        proc = subprocess.Popen([
+            browser, '--headless=new', f'--user-data-dir={profile}',
+            f'--remote-debugging-port={DEBUG_PORT}',
+            f'--window-size={width},{height}',
+            'about:blank'
+        ])
+        await asyncio.sleep(1.5)
+        try:
+            res = urllib.request.urlopen(f'http://127.0.0.1:{DEBUG_PORT}/json/list')
+            pages = json.loads(res.read())
+            page = next(p for p in pages if p.get('type') == 'page')
+            ws_url = page['webSocketDebuggerUrl']
+
+            async with websockets.connect(ws_url, max_size=20*1024*1024) as ws:
+                if mobile:
+                    await ws.send(json.dumps({
+                        'id': 1, 'method': 'Emulation.setDeviceMetricsOverride',
+                        'params': {'width': width, 'height': height, 'deviceScaleFactor': 2, 'mobile': True}
+                    }))
+                    await ws.recv()
+                else:
+                    await ws.send(json.dumps({
+                        'id': 1, 'method': 'Emulation.setDeviceMetricsOverride',
+                        'params': {'width': width, 'height': height, 'deviceScaleFactor': 2, 'mobile': False}
+                    }))
+                    await ws.recv()
+
+                await ws.send(json.dumps({
+                    'id': 2, 'method': 'Page.navigate', 'params': {'url': url}
+                }))
+                await ws.recv()
+
+                print(f"  [⏳] Waiting {wait_sec}s for full Framer Motion & Three.js animations ({width}x{height})...")
+                await asyncio.sleep(wait_sec)
+
+                await ws.send(json.dumps({'id': 3, 'method': 'Page.captureScreenshot', 'params': {'format': 'png'}}))
+                while True:
+                    msg = json.loads(await ws.recv())
+                    if msg.get('id') == 3:
+                        data = base64.b64decode(msg['result']['data'])
+                        out_png.parent.mkdir(parents=True, exist_ok=True)
+                        with open(out_png, 'wb') as f:
+                            f.write(data)
+                        break
+            print(f"  [+] Captured: {out_png.name} ({width}x{height})")
+        finally:
+            proc.terminate()
+            proc.wait()
+
+
+def shoot_card(url: str, out: Path, width: int, height: int) -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as profile:
         args = [
@@ -75,22 +124,15 @@ def shoot(url: str, out: Path, width: int, height: int, transparent: bool = Fals
             "--hide-scrollbars",
             "--force-device-scale-factor=2",
             f"--window-size={width},{height}",
-            f"--virtual-time-budget={delay_ms}",
+            "--default-background-color=00000000",
             f"--screenshot={str(out.resolve())}",
+            url
         ]
-        if transparent:
-            args.append("--default-background-color=00000000")
-        if mobile:
-            args.append(
-                "--user-agent=Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) "
-                "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
-            )
-        args.append(url)
-        subprocess.run(args, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=120)
-    print(f"  [+] Captured: {out.name} ({width}x{height})")
+        subprocess.run(args, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=60)
+    print(f"  [+] Card rendered: {out.name} ({width}x{height})")
 
 
-def convert_webp(src_png: Path, out_webp: Path, target_width: int = 1760, quality: int = 92) -> None:
+def convert_webp(src_png: Path, out_webp: Path, target_width: int = 1760, quality: int = 94) -> None:
     with Image.open(src_png) as img:
         w, h = img.size
         new_h = int(h * (target_width / w))
@@ -108,10 +150,10 @@ def main():
     SHOTS.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
 
-    # 1. Capture live screenshots
-    print("\n1. Capturing live UI from Vercel...")
-    shoot(LIVE_URL, SHOTS / "desktop.png", 1440, 900, delay_ms=6000)
-    shoot(LIVE_URL, SHOTS / "mobile.png", 390, 844, mobile=True, delay_ms=6000)
+    # 1. Capture live UI screenshots with full animation settling
+    print("\n1. Capturing live UI from Vercel (waiting for full hero content)...")
+    asyncio.run(capture_cdp(LIVE_URL, SHOTS / "desktop.png", 1440, 900, mobile=False, wait_sec=6))
+    asyncio.run(capture_cdp(LIVE_URL, SHOTS / "mobile.png", 390, 844, mobile=True, wait_sec=6))
 
     # 2. Start local server to render HTML cards
     print("\n2. Starting local server for card rendering...")
@@ -128,13 +170,17 @@ def main():
         print("\n3. Rendering cards via headless browser...")
         for html_name, png_name, w, h in cards:
             url = f"http://127.0.0.1:{PORT}/{html_name}"
-            png_path = SHOTS / png_name
-            shoot(url, png_path, w, h, transparent=True, delay_ms=3000)
+            shoot_card(url, SHOTS / png_name, w, h)
 
         print("\n4. Converting to optimized WebP...")
         convert_webp(SHOTS / "banner.png", OUT / "banner.webp", target_width=1760, quality=94)
         convert_webp(SHOTS / "stats.png", OUT / "stats.webp", target_width=1760, quality=94)
         convert_webp(SHOTS / "preview.png", OUT / "preview.webp", target_width=1760, quality=94)
+
+        # Remove unneeded intermediate PNGs
+        for p in [SHOTS / "banner.png", SHOTS / "stats.png", SHOTS / "preview.png"]:
+            if p.exists():
+                p.unlink()
 
     finally:
         httpd.shutdown()
