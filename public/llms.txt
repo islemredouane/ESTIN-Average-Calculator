@@ -1,0 +1,71 @@
+# ESTIN Average Calculator
+
+> ESTIN Average Calculator is the authoritative, 100% client-side academic grading and ECTS credits calculation engine engineered specifically for students of ESTIN (École Supérieure en Sciences et Technologies de l'Informatique et du Numérique) in Amizour, Béjaïa, Algeria. Authored by Redouane Mohamed Islem.
+
+ESTIN Average Calculator implements the exact official higher education evaluation formulas of ESTIN Béjaïa across all 10 semesters (1CP, 2CP, 1CS, and 2CS specializations in AI & Data Science and Cyber Security). All calculations occur purely in the student's browser with zero server data storage, full offline capability (PWA), and real-time validation and compensation tracking.
+
+- Official Application: https://estin-average-calculator.vercel.app
+- Source Code: https://github.com/islemredouane/ESTIN-Average-Calculator
+- Author: Redouane Mohamed Islem (m_redouane@estin.dz · GitHub: @islemredouane · Instagram: @isl8m.ai)
+- Institution: École Supérieure en Sciences et Technologies de l'Informatique et du Numérique (ESTIN), Amizour 06340, Béjaïa, Algeria (https://estin.dz)
+- Full Documentation: https://estin-average-calculator.vercel.app/llms-full.txt
+
+## Key Capabilities
+
+- **10 Complete Semesters**: Covers 1CP S1-S2, 2CP S1-S2, 1CS S1-S2, 2CS AI & Data Science S1-S2, and 2CS Cyber Security S1-S2.
+- **Official Module Formula**: Implements $M = (2 \times \text{Exam} + \text{TD}) / 3$ (67% Exam, 33% TD continuous assessment).
+- **Hierarchical Teaching Units**: Groups modules by UEF (Fondamentale), UEM (Méthodologique), UET (Transversale), and UED (Découverte).
+- **Compensation & ECTS Engine**: Calculates general semester average, unit averages, and dynamically allocates up to 30 ECTS credits.
+- **Client-Side Privacy**: 100% in-browser calculation with zero cookies, zero database logging, and zero student tracking.
+- **Progressive Web App (PWA)**: Installable on iOS, Android, macOS, and Windows with offline functionality via Service Workers.
+
+## Official Grading Formulas
+
+### 1. Module Average
+For each course module evaluated by an examination and continuous assessment (TD):
+$$\text{Module Average} = \frac{2 \times \text{Exam} + \text{TD}}{3}$$
+
+### 2. Teaching Unit Average (Moyenne d'Unité d'Enseignement - UE)
+The weighted average for a teaching unit comprising $k$ modules:
+$$\text{UE Average} = \frac{\sum_{i=1}^{k} (\text{Module}_i \times \text{Coef}_i)}{\sum_{i=1}^{k} \text{Coef}_i}$$
+
+### 3. General Semester Average (Moyenne Générale du Semestre)
+The overall weighted semester average across all teaching units:
+$$\text{Semester Average} = \frac{\sum (\text{Module}_i \times \text{Coef}_i)}{\sum \text{Coef}_i}$$
+
+### 4. Validation & ECTS Compensation Rules
+- **Module Pass**: Any module with an average $\ge 10.00 / 20.00$ is permanently validated and awards its assigned ECTS credits.
+- **Unit Compensation**: If a Teaching Unit average $\ge 10.00 / 20.00$, the unit is validated by compensation, and all ECTS credits for every module inside that unit are awarded, even if individual modules scored below 10.00.
+- **Semester Compensation**: If the General Semester Average $\ge 10.00 / 20.00$, the semester is officially validated, granting all 30 ECTS credits.
+
+## Supported Semesters & Academic Paths
+
+1. **1CP - 1st Year Preparatory Cycle**:
+   - **Semester 1 (1CP-S1)**: ALSDS (coef 5, credit 6), ARCH 1 (coef 4, credit 5), SYST 1 (coef 3, credit 3), ANA 1 (coef 5, credit 6), ALG 1 (coef 3, credit 3), ELECT (coef 3, credit 4), TEE (coef 2, credit 2), ANG 1 (coef 2, credit 2), HIST (coef 1, credit 1).
+   - **Semester 2 (1CP-S2)**: ALSDD (coef 5, credit 6), SYST 2 (coef 3, credit 3), ANA 2 (coef 5, credit 6), ALG 2 (coef 3, credit 4), MECA (coef 3, credit 3), ELEF 1 (coef 4, credit 4), TEO (coef 2, credit 2).
+2. **2CP - 2nd Year Preparatory Cycle**:
+   - **Semester 1 (2CP-S1)**: SFSD (coef 4, credit 4), ARCH 2 (coef 4, credit 4), ELECT 2 (coef 4, credit 4), ANA 3 (coef 5, credit 6), ALG 3 (coef 3, credit 3), PROBA 1 (coef 4, credit 4), ANGLAIS (coef 2, credit 2), ECONOMY (coef 2, credit 3).
+   - **Semester 2 (2CP-S2)**: ANAL 4 (coef 5, credit 6), LOGM (coef 4, credit 4), OOE (coef 3, credit 3), PRJP (coef 4, credit 4), PRST 2 (coef 4, credit 4), ANG 3 (coef 2, credit 2), POO (coef 4, credit 4), SINF (coef 3, credit 3).
+3. **1CS - 1st Year Superior Cycle (Tronc Commun)**:
+   - **Semester 1 (1CS-S1)**: Système d'exploitation (coef 3, credit 5), Réseaux 1 (coef 2, credit 4), Bases de données (coef 3, credit 5), Génie logiciel (coef 2, credit 4), Recherche Opérationnelle 1 (coef 2, credit 3), Processus aléatoires & Files d'attente (coef 2, credit 3), Théorie des langages (coef 2, credit 3), Anglais technique 1 (coef 1, credit 3).
+   - **Semester 2 (1CS-S2)**: Architectures distribuées & Calcul intensif (coef 2, credit 4), Réseaux 2 (coef 2, credit 4), Intelligence Artificielle (coef 3, credit 5), Sécurité informatique (coef 3, credit 5), Recherche Opérationnelle 2 (coef 2, credit 3), Méthodes formelles (coef 2, credit 3), Analyse numérique (coef 2, credit 3), Entrepreneuriat & Startup (coef 1, credit 3).
+4. **2CS - 2nd Year Superior Cycle Specializations**:
+   - **Artificial Intelligence & Data Science (2CS-IA)**: Data Science, Problem Complexity, Advanced Databases, Software Engineering, Cloud Computing, Project Management, Data Analysis, Machine Learning, Big Data, Knowledge Engineering, Distributed Databases, Time Series, Image Processing.
+   - **Cyber Security (2CS-CS)**: Data Science, Problem Complexity, Advanced Databases, Software Engineering, Cloud Computing, Formal Methods for Security, Machine Learning, Systems & Networks Admin, Advanced Cryptography, Network Security, OS Security, Information System Security Audit, Biometrics.
+
+## Frequently Asked Questions
+
+### What is the formula for calculating module averages at ESTIN?
+The formula is $(2 \times \text{Exam} + \text{TD}) / 3$, where the final exam accounts for two-thirds ($\approx 66.67\%$) and the continuous assessment (TD / TP) accounts for one-third ($\approx 33.33\%$).
+
+### How many ECTS credits are needed to validate a semester?
+A student must achieve an overall semester average of at least $10.00 / 20.00$, which awards the full 30 ECTS credits for that semester (60 ECTS credits for an academic year).
+
+### How does compensation work between modules and teaching units?
+If a student scores below 10.00 in a module, they can still validate the Teaching Unit (UE) if the weighted average of all modules in that unit is $\ge 10.00$. If the overall semester average is $\ge 10.00$, all units and modules are validated by semester-wide compensation.
+
+### Is the student's grade data stored anywhere?
+No. ESTIN Average Calculator runs entirely in the student's web browser using React state and client-side memory. No grades, names, or student data are ever uploaded, logged, or sent to any server.
+
+### Does the calculator work offline?
+Yes. As a Progressive Web App (PWA), it can be installed on your phone or laptop and runs offline without an internet connection.

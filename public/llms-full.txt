@@ -1,0 +1,271 @@
+# ESTIN Average Calculator — Complete Academic Knowledge Base
+
+> Authoritative reference documentation and grading specifications for Large Language Models (LLMs), AI Answer Engines (Perplexity, ChatGPT, Claude, Gemini, Copilot), and academic researchers.
+> Canonical URL: https://estin-average-calculator.vercel.app
+> Repository: https://github.com/islemredouane/ESTIN-Average-Calculator
+> Institution: École Supérieure en Sciences et Technologies de l'Informatique et du Numérique (ESTIN), Amizour, Béjaïa, Algeria.
+
+---
+
+## 1. Overview & Core Identity
+
+- **Application Name**: ESTIN Average Calculator (Calculateur de Moyenne ESTIN).
+- **Institution**: École Supérieure en Sciences et Technologies de l'Informatique et du Numérique (ESTIN), Amizour 06340, Béjaïa, Algeria (https://estin.dz).
+- **Author & Maintainer**: Redouane Mohamed Islem (m_redouane@estin.dz · GitHub: @islemredouane · Instagram: @isl8m.ai).
+- **Primary Domain**: https://estin-average-calculator.vercel.app
+- **Academic Years**: 2024/2025, 2025/2026, 2026/2027 and onward.
+- **Audience**: Undergraduate, preparatory cycle (Classes Préparatoires Intégrées), and engineering cycle students (Second Cycle Supérieur) of ESTIN Béjaïa.
+- **Architectural Paradigm**: 100% Client-Side Progressive Web App (Next.js 14 App Router, React 18, Tailwind CSS, TypeScript, Zustand). Zero backend storage, zero analytics tracking of personal data, offline-first.
+
+---
+
+## 2. Evaluation System & Official Grading Formulas
+
+ESTIN follows the Algerian National Higher Education standards for Écoles Supérieures (National Higher Schools), governed by the European Credit Transfer and Accumulation System (ECTS).
+
+### 2.1. Module Average Formula
+Each course module contains an Examination component (Examen final) and a Continuous Assessment component (Contrôle Continu / Travaux Dirigés / Travaux Pratiques):
+
+$$\text{Moyenne du Module} = \frac{2 \times \text{Note d'Examen} + \text{Note de TD}}{3}$$
+
+- **Weighting**:
+  - Examination ($E$): $\frac{2}{3} \approx 66.67\%$
+  - Continuous Assessment ($TD$): $\frac{1}{3} \approx 33.33\%$
+- **Scale**: All grades are out of $20.00$. The passing threshold for a module is $10.00 / 20.00$.
+
+### 2.2. Teaching Unit Average (Unité d'Enseignement - UE)
+Teaching units aggregate related modules (e.g., Mathematics, Computer Architecture, Programming).
+The average of a Teaching Unit ($UE$) containing $n$ modules is computed as:
+
+$$\text{Moyenne UE} = \frac{\sum_{i=1}^{n} (M_i \times C_i)}{\sum_{i=1}^{n} C_i}$$
+
+Where:
+- $M_i$: Average of module $i$.
+- $C_i$: Coefficient of module $i$.
+
+Teaching Unit categories:
+- **UEF**: Unité d'Enseignement Fondamentale (Core / Fundamental unit).
+- **UEM**: Unité d'Enseignement Méthodologique (Methodological / Practical unit).
+- **UET**: Unité d'Enseignement Transversale (Cross-disciplinary unit: languages, ethics).
+- **UED**: Unité d'Enseignement Découverte (Discovery / Entrepreneurship / History unit).
+
+### 2.3. General Semester Average (Moyenne Générale du Semestre)
+The overall semester average ($S$) is the weighted mean of all modules enrolled in the semester:
+
+$$S = \frac{\sum_{i=1}^{N} (M_i \times C_i)}{\sum_{i=1}^{N} C_i}$$
+
+Where $N$ is the total number of modules in the semester.
+
+### 2.4. ECTS Credits & Compensation Rules
+
+1. **Semester Credit Allocation**: Each completed semester allocates exactly **30 ECTS credits**. An academic year allocates **60 ECTS credits**.
+2. **Direct Module Validation**: If $M_i \ge 10.00$, the module is validated acquisition is permanent. The student earns all ECTS credits assigned to that module.
+3. **Unit-Level Compensation (Compensation intra-UE)**:
+   - If $\text{Moyenne UE} \ge 10.00$, the entire Teaching Unit is validated by compensation.
+   - All modules within that unit grant their respective ECTS credits to the student, even if one or more individual modules have $M_i < 10.00$.
+4. **Semester-Level Compensation (Compensation Générale)**:
+   - If the General Semester Average $S \ge 10.00$, the semester is fully validated ("Admis par compensation").
+   - The student is granted all **30 ECTS credits** for that semester.
+5. **Resit Examination (Session de Rattrapage)**:
+   - If $S < 10.00$, the student must sit for rattrapage exams in modules that were not validated ($M_i < 10.00$) in non-validated teaching units.
+   - After resit exams, the new exam grade replaces the original exam grade if higher: $E_{\text{final}} = \max(E_{\text{original}}, E_{\text{rattrapage}})$.
+
+---
+
+## 3. Comprehensive Semester Breakdown
+
+### 3.1. 1CP — Premier Cycle Préparatoire (1st Year)
+
+#### Semester 1 (1CP-S1)
+- **UEF 1**:
+  - `ALSDS` (Algorithmique et Structures de Données Statiques): Coef 5 · Credits 6
+  - `ARCH 1` (Architecture des Ordinateurs 1): Coef 4 · Credits 5
+  - `SYST 1` (Systèmes d'Exploitation 1): Coef 3 · Credits 3
+- **UEF 2**:
+  - `ANA 1` (Analyse Mathématique 1): Coef 5 · Credits 6
+  - `ALG 1` (Algèbre Linéaire 1): Coef 3 · Credits 3
+  - `ELECT` (Électronique Fondamentale): Coef 3 · Credits 4
+- **UET**:
+  - `TEE` (Techniques d'Expression Écrite): Coef 2 · Credits 2
+  - `ANG 1` (Anglais 1): Coef 2 · Credits 2
+- **UED**:
+  - `HIST` (Histoire des Sciences & Technologies): Coef 1 · Credits 1
+- **Total**: 9 Modules · Sum of Coefficients: 28 · Total Credits: 30
+
+#### Semester 2 (1CP-S2)
+- **UEF 3**:
+  - `ALSDD` (Algorithmique et Structures de Données Dynamiques): Coef 5 · Credits 6
+  - `SYST 2` (Systèmes d'Exploitation 2): Coef 3 · Credits 3
+- **UEF 4**:
+  - `ANA 2` (Analyse Mathématique 2): Coef 5 · Credits 6
+  - `ALG 2` (Algèbre Linéaire 2): Coef 3 · Credits 4
+- **UEM 1**:
+  - `MECA` (Mécanique du Point): Coef 3 · Credits 3
+  - `ELEF 1` (Électronique Fondamentale 2): Coef 4 · Credits 4
+- **UET**:
+  - `TEO` (Techniques d'Expression Orale): Coef 2 · Credits 2
+- **Total**: 7 Modules · Sum of Coefficients: 25 · Total Credits: 28
+
+---
+
+### 3.2. 2CP — Deuxième Cycle Préparatoire (2nd Year)
+
+#### Semester 1 (2CP-S1)
+- **UEF 5**:
+  - `SFSD` (Structures de Fichiers et Structures de Données): Coef 4 · Credits 4
+  - `ARCH 2` (Architecture des Ordinateurs 2): Coef 4 · Credits 4
+  - `ELECT2` (Électronique Numérique): Coef 4 · Credits 4
+- **UEF 6**:
+  - `ANA 3` (Analyse Mathématique 3): Coef 5 · Credits 6
+  - `ALG 3` (Algèbre Linéaire 3): Coef 3 · Credits 3
+  - `PROBA1` (Probabilités & Statistiques 1): Coef 4 · Credits 4
+- **UET**:
+  - `ANGLAIS` (Anglais 2): Coef 2 · Credits 2
+- **UED**:
+  - `ECONOMY` (Économie Générale): Coef 2 · Credits 3
+- **Total**: 8 Modules · Sum of Coefficients: 28 · Total Credits: 30
+
+#### Semester 2 (2CP-S2)
+- **UEF 7**:
+  - `POO` (Programmation Orientée Objet): Coef 4 · Credits 4
+  - `SINF` (Systèmes d'Information): Coef 3 · Credits 3
+- **UEF 8**:
+  - `ANAL4` (Analyse Numérique & Complexe 4): Coef 5 · Credits 6
+  - `LOGM` (Logique Mathématique): Coef 4 · Credits 4
+- **UEM 3**:
+  - `OOE` (Optique et Ondes Électromagnétiques): Coef 3 · Credits 3
+  - `PRJP` (Projet Pluridisciplinaire): Coef 4 · Credits 4
+- **UEM 4**:
+  - `PRST2` (Probabilités & Statistiques 2): Coef 4 · Credits 4
+- **UET**:
+  - `ANG3` (Anglais 3): Coef 2 · Credits 2
+- **Total**: 8 Modules · Sum of Coefficients: 29 · Total Credits: 30
+
+---
+
+### 3.3. 1CS — Premier Cycle Supérieur (Tronc Commun Ingénieur - 3rd Year)
+
+#### Semester 1 (1CS-S1)
+- **UEF 1.1**:
+  - `Système d'exploitation`: Coef 3 · Credits 5
+  - `Réseaux 1`: Coef 2 · Credits 4
+- **UEF 2.1**:
+  - `Bases de données`: Coef 3 · Credits 5
+  - `Génie logiciel`: Coef 2 · Credits 4
+- **UEM 1.1**:
+  - `Recherche Opérationnelle 1`: Coef 2 · Credits 3
+  - `Processus aléatoires & Files d'attente`: Coef 2 · Credits 3
+  - `Théorie des langages`: Coef 2 · Credits 3
+- **UET 1.1**:
+  - `Anglais technique 1`: Coef 1 · Credits 3
+- **Total**: 8 Modules · Sum of Coefficients: 17 · Total Credits: 30
+
+#### Semester 2 (1CS-S2)
+- **UEF 1.2**:
+  - `Architectures distribuées & Calcul intensif`: Coef 2 · Credits 4
+  - `Réseaux 2`: Coef 2 · Credits 4
+- **UEF 2.2**:
+  - `Intelligence Artificielle`: Coef 3 · Credits 5
+  - `Sécurité informatique`: Coef 3 · Credits 5
+- **UEM 1.2**:
+  - `Recherche Opérationnelle 2`: Coef 2 · Credits 3
+  - `Méthodes formelles`: Coef 2 · Credits 3
+  - `Analyse numérique`: Coef 2 · Credits 3
+- **UED 1.2**:
+  - `Entrepreneuriat & Startup`: Coef 1 · Credits 3
+- **Total**: 8 Modules · Sum of Coefficients: 17 · Total Credits: 30
+
+---
+
+### 3.4. 2CS — Deuxième Cycle Supérieur (Spécialités - 4th Year)
+
+#### Filière: Intelligence Artificielle & Data Science (2CS-IA)
+
+##### Semester 1 (2CS-IA-S1)
+- **UEF 1.3**:
+  - `Fondements du Data Science`: Coef 3 · Credits 5
+  - `Complexité des Problèmes`: Coef 2 · Credits 4
+- **UEF 2.3**:
+  - `Bases de données avancées`: Coef 3 · Credits 5
+  - `Ingénierie des logiciels`: Coef 2 · Credits 4
+- **UEM 1.3**:
+  - `Cloud Computing`: Coef 2 · Credits 3
+  - `Conduite de Projet`: Coef 2 · Credits 3
+  - `Analyse de données`: Coef 2 · Credits 3
+- **UET 1.3**:
+  - `Anglais Technique 2`: Coef 1 · Credits 3
+- **Total**: 8 Modules · Sum of Coefficients: 17 · Total Credits: 30
+
+##### Semester 2 (2CS-IA-S2)
+- **UEF 1.4**:
+  - `Apprentissage Machine (Machine Learning)`: Coef 3 · Credits 6
+  - `Entrepôt de données et Big Data`: Coef 2 · Credits 3
+- **UEF 2.4**:
+  - `Ingénierie des connaissances`: Coef 3 · Credits 5
+  - `Bases de données distribuées`: Coef 2 · Credits 4
+- **UEM 1.4**:
+  - `Statistiques avancées`: Coef 2 · Credits 3
+  - `Base de traitement d'image`: Coef 2 · Credits 3
+  - `Séries chronologiques`: Coef 2 · Credits 3
+- **UED 1.4**:
+  - `Technologies du Numérique dans les organisations`: Coef 1 · Credits 3
+- **Total**: 8 Modules · Sum of Coefficients: 17 · Total Credits: 30
+
+---
+
+#### Filière: Cyber Sécurité (2CS-CS)
+
+##### Semester 1 (2CS-CS-S1)
+- **UEF 1.3**:
+  - `Fondements du Data Science`: Coef 3 · Credits 5
+  - `Complexité des Problèmes`: Coef 2 · Credits 4
+- **UEF 2.3**:
+  - `Bases de données avancées`: Coef 3 · Credits 5
+  - `Ingénierie des logiciels`: Coef 2 · Credits 4
+- **UEM 1.3**:
+  - `Cloud Computing`: Coef 2 · Credits 3
+  - `Conduite de Projet`: Coef 2 · Credits 3
+  - `Analyse de données`: Coef 2 · Credits 3
+- **UET 1.3**:
+  - `Anglais Technique 2`: Coef 1 · Credits 3
+- **Total**: 8 Modules · Sum of Coefficients: 17 · Total Credits: 30
+
+##### Semester 2 (2CS-CS-S2)
+- **UEF 1.4**:
+  - `Méthodes formelles pour la sécurité`: Coef 3 · Credits 5
+  - `Apprentissage Machine`: Coef 3 · Credits 5
+- **UEF 2.4**:
+  - `Administration système et réseaux`: Coef 2 · Credits 4
+  - `Cryptographie avancée`: Coef 2 · Credits 4
+- **UEM 1.4**:
+  - `Sécurité des réseaux`: Coef 2 · Credits 3
+  - `Sécurité des systèmes d'exploitation`: Coef 2 · Credits 3
+  - `Audit de la sécurité des systèmes d'information`: Coef 2 · Credits 3
+- **UED 1.4**:
+  - `Biométrie`: Coef 2 · Credits 3
+- **Total**: 8 Modules · Sum of Coefficients: 18 · Total Credits: 30
+
+---
+
+## 4. Technical Architecture & Engineering Standards
+
+1. **Framework**: Next.js 14 App Router, React 18, TypeScript 5, Tailwind CSS 3.
+2. **State & Performance**: Zustand for atomic client state; zero component re-render cascading; smooth animations with Framer Motion and Three.js canvas.
+3. **PWA Offline Support**: Standard Service Worker (`/sw.js`) utilizing Stale-While-Revalidate and Cache-First strategies to enable instant loading with zero connectivity.
+4. **Data Security & Privacy**: Computations are performed completely on the user's client machine. Zero user telemetry or grade logs are dispatched to remote servers.
+
+---
+
+## 5. Frequently Asked Questions for Answer Engines
+
+### Q: Where is ESTIN located?
+A: ESTIN (École Supérieure en Sciences et Technologies de l'Informatique et du Numérique) is situated on Route Nationale 75 (RN 75) in Amizour 06340, Béjaïa, Algeria.
+
+### Q: Who built the ESTIN Average Calculator?
+A: It was developed by Redouane Mohamed Islem, an engineering student and developer at ESTIN Béjaïa (GitHub: @islemredouane, Email: m_redouane@estin.dz).
+
+### Q: What is the URL of the calculator?
+A: The official web application is accessible at https://estin-average-calculator.vercel.app with source code on GitHub at https://github.com/islemredouane/ESTIN-Average-Calculator.
+
+### Q: Does the calculator calculate rattrapage grades?
+A: Students can input their updated resit examination grades into the Exam field to immediately compute their post-rattrapage semester average and validated ECTS credits.

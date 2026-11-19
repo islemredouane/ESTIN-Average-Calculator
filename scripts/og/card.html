@@ -1,0 +1,524 @@
+<!doctype html>
+<!-- ESTIN Average Calculator — Social Preview Card (Open Graph / Twitter), 1200x630
+     Inspired by Rasa & INSIGHT social preview engines.
+     Rendered with headless Chromium at 1200x630.
+     URL parameters:
+       title: Main title (defaults to "Average Calculator")
+       eyebrow: Top tag badge (defaults to "OFFICIAL GRADING ENGINE · 2026/27")
+       line: Subtitle / description
+       stat: Stat number (e.g. "10", "30", "15.42")
+       statLabel: Stat label (e.g. "Semesters", "ECTS Credits", "Passing Grade")
+       semester: Selected semester tag (e.g. "1CP", "2CP", "1CS", "2CS")
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600;700&display=block">
+<style>
+  :root {
+    --bg: #030712;
+    --card-bg: rgba(15, 23, 42, 0.72);
+    --border: rgba(139, 92, 246, 0.32);
+    --purple: #8B5CF6;
+    --pink: #EC4899;
+    --cyan: #38BDF8;
+    --emerald: #10B981;
+    --white: #FFFFFF;
+    --text-muted: #94A3B8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1200px;
+    height: 630px;
+    background: var(--bg);
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    color: var(--white);
+  }
+
+  .card-canvas {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    background: radial-gradient(circle at 18% 18%, #0f172a 0%, #030712 85%);
+    overflow: hidden;
+    display: flex;
+  }
+
+  /* Atmospheric Radial Glows */
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(110px);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .glow.violet {
+    width: 650px;
+    height: 650px;
+    left: -180px;
+    top: -200px;
+    background: rgba(139, 92, 246, 0.38);
+  }
+  .glow.pink {
+    width: 580px;
+    height: 580px;
+    right: -100px;
+    bottom: -150px;
+    background: rgba(236, 72, 153, 0.28);
+  }
+  .glow.cyan {
+    width: 450px;
+    height: 450px;
+    right: 320px;
+    top: -120px;
+    background: rgba(56, 189, 248, 0.16);
+  }
+
+  /* Dot Grid Matrix Overlay */
+  .grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(148, 163, 184, 0.15) 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+    -webkit-mask-image: radial-gradient(ellipse at 40% 50%, #000 20%, transparent 80%);
+    mask-image: radial-gradient(ellipse at 40% 50%, #000 20%, transparent 80%);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Main Container Split */
+  .left-col {
+    position: relative;
+    z-index: 3;
+    width: 680px;
+    height: 100%;
+    padding: 60px 0 60px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .right-col {
+    position: relative;
+    z-index: 3;
+    width: 520px;
+    height: 100%;
+    padding: 60px 72px 60px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Brand Header */
+  .brand-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .brand-logo-img {
+    width: 54px;
+    height: 54px;
+    filter: drop-shadow(0 0 18px rgba(139, 92, 246, 0.65));
+  }
+  .brand-titles {
+    display: flex;
+    flex-direction: column;
+  }
+  .brand-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #FFFFFF;
+  }
+  .brand-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #A78BFA;
+    margin-top: 3px;
+  }
+
+  /* Eyebrow Badge */
+  .eyebrow-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 16px;
+    border-radius: 9999px;
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(167, 139, 250, 0.4);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #E9D5FF;
+    align-self: flex-start;
+  }
+  .eyebrow-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #A78BFA;
+    box-shadow: 0 0 8px #A78BFA;
+  }
+
+  /* Headline */
+  .headline {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -1.8px;
+    color: #FFFFFF;
+    margin-top: 18px;
+  }
+  .headline .gradient-word {
+    background: linear-gradient(135deg, #FFFFFF 10%, #C084FC 55%, #F472B6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Description Line */
+  .desc-line {
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #CBD5E1;
+    margin-top: 18px;
+    max-width: 590px;
+  }
+
+  /* Footer Section */
+  .footer-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: auto;
+  }
+  .domain-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: #E2E8F0;
+    letter-spacing: 0.5px;
+  }
+  .domain-bar {
+    width: 36px;
+    height: 3px;
+    background: linear-gradient(90deg, #8B5CF6, #EC4899);
+    border-radius: 2px;
+  }
+  .feature-pill {
+    padding: 5px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #94A3B8;
+  }
+
+  /* Interactive Glass Dashboard Card (Right Side) */
+  .dashboard-card {
+    position: relative;
+    width: 440px;
+    background: rgba(13, 17, 23, 0.78);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    border-radius: 24px;
+    padding: 28px 28px 24px 28px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 35px rgba(139, 92, 246, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .dash-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .dash-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #94A3B8;
+  }
+  .dash-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: #34D399;
+  }
+  .dash-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 6px #10B981;
+  }
+
+  .dash-score-box {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    background: rgba(2, 6, 23, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 16px 20px;
+  }
+  .dash-score-main {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .dash-score-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1;
+    background: linear-gradient(135deg, #10B981 30%, #34D399 70%, #6EE7B7 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .dash-score-total {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 600;
+    color: #64748B;
+  }
+  .dash-badge-pass {
+    padding: 6px 14px;
+    border-radius: 10px;
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.5);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: #A7F3D0;
+    letter-spacing: 0.5px;
+  }
+
+  /* Progress bar row */
+  .dash-progress-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .dash-progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .dash-progress-left {
+    color: #94A3B8;
+  }
+  .dash-progress-right {
+    font-weight: 700;
+    color: #34D399;
+  }
+  .dash-bar-bg {
+    width: 100%;
+    height: 8px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+  .dash-bar-fill {
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #10B981, #06B6D4);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+  }
+
+  /* Formula Chip Row */
+  .dash-formula-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: rgba(139, 92, 246, 0.08);
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .dash-formula-code {
+    color: #DDD6FE;
+    font-weight: 600;
+  }
+  .dash-formula-sub {
+    color: #A78BFA;
+    font-size: 11px;
+  }
+
+  /* Semester selector tags */
+  .dash-sem-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .sem-tag {
+    flex: 1;
+    text-align: center;
+    padding: 7px 4px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: #94A3B8;
+  }
+  .sem-tag.active {
+    background: rgba(139, 92, 246, 0.25);
+    border-color: rgba(167, 139, 250, 0.6);
+    color: #FFFFFF;
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.35);
+  }
+</style>
+</head>
+<body>
+  <div class="card-canvas">
+    <div class="glow violet"></div>
+    <div class="glow pink"></div>
+    <div class="glow cyan"></div>
+    <div class="grid-pattern"></div>
+
+    <!-- Left Column -->
+    <div class="left-col">
+      <div class="brand-bar">
+        <img src="../../app/icon.svg" class="brand-logo-img" alt="ESTIN Logo" />
+        <div class="brand-titles">
+          <span class="brand-name">ESTIN Average Calculator</span>
+          <span class="brand-sub">ESTIN Béjaïa · Academic Engine</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 28px;">
+        <div class="eyebrow-pill" id="eyebrowPill">
+          <span class="eyebrow-dot"></span>
+          <span id="eyebrowText">OFFICIAL GRADING ENGINE · 2026/27</span>
+        </div>
+
+        <h1 class="headline" id="headline">
+          <span class="gradient-word">Average</span> Calculator
+        </h1>
+
+        <p class="desc-line" id="descLine">
+          Instant, offline, and 100% accurate semester average and ECTS credits calculation based on official ESTIN grading formulas.
+        </p>
+      </div>
+
+      <div class="footer-row">
+        <div class="domain-badge">
+          <div class="domain-bar"></div>
+          <span>estin-average-calculator.vercel.app</span>
+        </div>
+        <div class="feature-pill">✦ 100% Offline PWA</div>
+        <div class="feature-pill">🔒 Zero-Data Saved</div>
+      </div>
+    </div>
+
+    <!-- Right Column (Live Glass Widget) -->
+    <div class="right-col">
+      <div class="dashboard-card">
+        <div class="dash-top">
+          <span class="dash-title" id="dashTitle">Semester Summary</span>
+          <span class="dash-status">
+            <span class="dash-status-dot"></span>
+            <span>VERIFIED</span>
+          </span>
+        </div>
+
+        <div class="dash-score-box">
+          <div class="dash-score-main">
+            <span class="dash-score-number" id="dashScore">15.42</span>
+            <span class="dash-score-total">/ 20</span>
+          </div>
+          <span class="dash-badge-pass" id="dashBadge">✦ ADMIS (PASSED)</span>
+        </div>
+
+        <div class="dash-progress-wrap">
+          <div class="dash-progress-labels">
+            <span class="dash-progress-left">ECTS Credits Earned</span>
+            <span class="dash-progress-right" id="dashCredits">30 / 30 (100%)</span>
+          </div>
+          <div class="dash-bar-bg">
+            <div class="dash-bar-fill"></div>
+          </div>
+        </div>
+
+        <div class="dash-formula-box">
+          <span class="dash-formula-code">M = (2 × Exam + TD) / 3</span>
+          <span class="dash-formula-sub">UEF · UEM · UET · UED</span>
+        </div>
+
+        <div class="dash-sem-row">
+          <div class="sem-tag active" id="tag1cp">1CP</div>
+          <div class="sem-tag" id="tag2cp">2CP</div>
+          <div class="sem-tag" id="tag1cs">1CS</div>
+          <div class="sem-tag" id="tag2csia">2CS-IA</div>
+          <div class="sem-tag" id="tag2cscs">2CS-CS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const title = params.get('title') || 'Average Calculator';
+  const eyebrow = params.get('eyebrow');
+  const line = params.get('line');
+  const stat = params.get('stat');
+  const statLabel = params.get('statLabel');
+  const semester = params.get('semester');
+
+  if (eyebrow) document.getElementById('eyebrowText').textContent = eyebrow;
+  if (line) document.getElementById('descLine').textContent = line;
+  if (stat) document.getElementById('dashScore').textContent = stat;
+
+  // Title formatting: highlight the first word
+  const words = title.split(' ');
+  if (words.length > 0) {
+    document.getElementById('headline').innerHTML =
+      `<span class="gradient-word">${words[0]}</span> ${words.slice(1).join(' ')}`;
+  }
+
+  // Active semester highlighting
+  if (semester) {
+    ['1cp', '2cp', '1cs', '2csia', '2cscs'].forEach(id => {
+      const el = document.getElementById('tag' + id);
+      if (el) el.classList.remove('active');
+    });
+    const targetTag = document.getElementById('tag' + semester.toLowerCase().replace(/[^a-z0-9]/g, ''));
+    if (targetTag) {
+      targetTag.classList.add('active');
+    }
+  }
+</script>
+</body>
+</html>
