@@ -1,0 +1,117 @@
+{
+  "id": "/",
+  "name": "ESTIN Average Calculator — Official Grading Engine",
+  "short_name": "ESTIN Calc",
+  "description": "Official semester average and ECTS credits calculator for ESTIN Béjaïa computer science students. 100% client-side, offline-ready, covering 1CP, 2CP, 1CS, and 2CS.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui",
+    "window-controls-overlay"
+  ],
+  "orientation": "portrait-primary",
+  "background_color": "#030712",
+  "theme_color": "#030712",
+  "categories": [
+    "education",
+    "productivity",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "1CP Preparatory",
+      "short_name": "1CP",
+      "description": "1st Year Preparatory Cycle Semesters",
+      "url": "/?semester=1CP-S1",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "2CP Preparatory",
+      "short_name": "2CP",
+      "description": "2nd Year Preparatory Cycle Semesters",
+      "url": "/?semester=2CP-S1",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "1CS Common Core",
+      "short_name": "1CS",
+      "description": "1st Year Superior Cycle Semesters",
+      "url": "/?semester=1CS-S1",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "2CS IA & Data Science",
+      "short_name": "2CS-IA",
+      "description": "Artificial Intelligence & Data Science Track",
+      "url": "/?semester=2CS-IA-S1",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "2CS Cyber Security",
+      "short_name": "2CS-CS",
+      "description": "Cyber Security & Systems Track",
+      "url": "/?semester=2CS-CS-S1",
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
