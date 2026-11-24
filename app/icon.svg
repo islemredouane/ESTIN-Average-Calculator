@@ -1,73 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
   <defs>
-    <!-- Gradient border: violet → pink → deep purple -->
-    <linearGradient id="bd" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%"   stop-color="#a78bfa"/>
-      <stop offset="50%"  stop-color="#ec4899"/>
+    <linearGradient id="bd" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="50%" stop-color="#ec4899"/>
       <stop offset="100%" stop-color="#6d28d9"/>
     </linearGradient>
-    <!-- Inner background -->
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%"   stop-color="#1e1040"/>
-      <stop offset="60%"  stop-color="#0f172a"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1e1040"/>
+      <stop offset="60%" stop-color="#0f172a"/>
       <stop offset="100%" stop-color="#020617"/>
     </linearGradient>
-    <!-- Sigma stroke gradient -->
-    <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%"   stop-color="#ede9fe"/>
+    <linearGradient id="x" x1="14" y1="18" x2="34" y2="38" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ede9fe"/>
       <stop offset="100%" stop-color="#fbcfe8"/>
     </linearGradient>
-    <!-- Glow on the Sigma -->
-    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <!-- Soft outer halo on hexagon -->
-    <filter id="halo" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
+    <linearGradient id="bar" x1="14" y1="0" x2="34" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#f472b6"/>
+    </linearGradient>
   </defs>
-
-  <!-- Outer halo (subtle purple bloom) -->
-  <polygon
-    points="50,4 90,27 90,73 50,96 10,73 10,27"
-    fill="none"
-    stroke="#7c3aed"
-    stroke-width="2"
-    opacity="0.35"
-    filter="url(#halo)"
-  />
-
-  <!-- Hexagon border layer -->
-  <polygon
-    points="50,4 90,27 90,73 50,96 10,73 10,27"
-    fill="url(#bd)"
-  />
-
-  <!-- Hexagon dark interior -->
-  <polygon
-    points="50,7.5 87,28.75 87,71.25 50,92.5 13,71.25 13,28.75"
-    fill="url(#bg)"
-  />
-
-  <!--
-    Sigma (Σ) — mathematical summation / average
-    top-right → top-left → right-apex → bottom-left → bottom-right
-  -->
-  <polyline
-    points="69,24 29,24 62,50 29,76 69,76"
-    fill="none"
-    stroke="url(#sg)"
-    stroke-width="7.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    filter="url(#glow)"
-  />
+  <rect width="48" height="48" rx="13" fill="url(#bd)"/>
+  <rect x="1.5" y="1.5" width="45" height="45" rx="11.5" fill="url(#bg)"/>
+  <rect x="14" y="10" width="20" height="4.5" rx="2.25" fill="url(#bar)"/>
+  <path d="M16 19.5 32 35.5M32 19.5 16 35.5" stroke="url(#x)" stroke-width="4.5" stroke-linecap="round" fill="none"/>
 </svg>

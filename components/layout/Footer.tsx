@@ -1,4 +1,5 @@
 import GithubStarButton from './GithubStarButton'
+import Logo from './Logo'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -9,19 +10,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-8">
           {/* Brand */}
           <div className="flex items-start gap-3">
-            <div className="p-px rounded-xl bg-gradient-to-br from-purple-500/70 via-pink-500/40 to-purple-900/30 flex-shrink-0">
-              <div className="w-9 h-9 rounded-[11px] bg-gradient-to-br from-purple-950 via-slate-900 to-slate-950 flex items-center justify-center">
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <defs>
-                    <linearGradient id="fSigma" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#ddd6fe" />
-                      <stop offset="100%" stopColor="#fbcfe8" />
-                    </linearGradient>
-                  </defs>
-                  <polyline points="19,4 5,4 15,12 5,20 19,20" stroke="url(#fSigma)" strokeWidth="2.25" />
-                </svg>
-              </div>
-            </div>
+            <Logo size={36} className="flex-shrink-0" />
             <div>
               <p className="text-sm font-bold text-white leading-none">ESTIN Average Calculator</p>
               <p className="mt-2 text-sm text-slate-400 leading-relaxed max-w-xs">
