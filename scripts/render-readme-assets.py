@@ -1,34 +1,27 @@
-"""Render ESTIN Average Calculator README images with headless Edge/Chrome using CDP.
+"""Render ESTIN Average Calculator README images with headless Edge/Chrome.
 
-Ensures Google Fonts (Space Grotesk) and Framer Motion / Three.js animations
-fully settle before taking 2x retina screenshots.
+Ensures Google Fonts (Space Grotesk) and animations settle, and applies a 4x
+supersampled rounded alpha mask so that corners outside the card radius are
+100% transparent (no white triangles).
 
 Usage:
     python scripts/render-readme-assets.py
 """
 import asyncio
 import base64
-import http.server
 import json
-import os
 import shutil
-import socketserver
 import subprocess
 import sys
 import tempfile
-import threading
-import time
 import urllib.request
 from pathlib import Path
-from PIL import Image
-import websockets
+from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / ".github" / "assets" / "src"
 SHOTS = SRC / "shots"
 OUT = ROOT / ".github" / "assets"
-PORT = 5533
-DEBUG_PORT = 9228
 LIVE_URL = "https://estin-average-calculator.vercel.app"
 
 CANDIDATES = [
@@ -48,110 +41,71 @@ def find_browser() -> str:
     sys.exit("No Chrome or Edge binary found.")
 
 
-class AssetHandler(http.server.SimpleHTTPRequestHandler):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, directory=str(SRC), **kwargs)
-
-    def log_message(self, format, *args):
-        pass
-
-
-def start_server() -> socketserver.TCPServer:
-    socketserver.TCPServer.allow_reuse_address = True
-    httpd = socketserver.TCPServer(("127.0.0.1", PORT), AssetHandler)
-    server_thread = threading.Thread(target=httpd.serve_forever, daemon=True)
-    server_thread.start()
-    return httpd
-
-
-async def capture_cdp(url: str, out_png: Path, width: int, height: int, mobile: bool = False, wait_sec: int = 4):
+def render_card_with_transparent_corners(
+    html_name: str,
+    out_webp_name: str,
+    width: int,
+    height: int,
+    target_width: int = 1760,
+    radius_px: int = 33,
+    quality: int = 95,
+) -> None:
     browser = find_browser()
+    url = (SRC / html_name).resolve().as_uri()
+
     with tempfile.TemporaryDirectory() as profile:
-        proc = subprocess.Popen([
-            browser, '--headless=new', f'--user-data-dir={profile}',
-            f'--remote-debugging-port={DEBUG_PORT}',
-            f'--window-size={width},{height}',
-            'about:blank'
-        ])
-        await asyncio.sleep(1.5)
-        try:
-            res = urllib.request.urlopen(f'http://127.0.0.1:{DEBUG_PORT}/json/list')
-            pages = json.loads(res.read())
-            page = next(p for p in pages if p.get('type') == 'page')
-            ws_url = page['webSocketDebuggerUrl']
+        raw_png = Path(profile) / "raw.png"
+        args = [
+            browser,
+            "--headless=new",
+            f"--user-data-dir={profile}",
+            "--hide-scrollbars",
+            "--force-device-scale-factor=2",
+            f"--window-size={width},{height}",
+            "--default-background-color=00000000",
+            f"--screenshot={raw_png}",
+            url,
+        ]
+        subprocess.run(args, check=True)
 
-            async with websockets.connect(ws_url, max_size=25*1024*1024) as ws:
-                await ws.send(json.dumps({
-                    'id': 1, 'method': 'Emulation.setDeviceMetricsOverride',
-                    'params': {'width': width, 'height': height, 'deviceScaleFactor': 2, 'mobile': mobile}
-                }))
-                await ws.recv()
+        with Image.open(raw_png).convert("RGBA") as img:
+            w, h = img.size
+            new_h = int(h * (target_width / w))
+            resized = img.resize((target_width, new_h), Image.Resampling.LANCZOS)
 
-                await ws.send(json.dumps({
-                    'id': 2, 'method': 'Page.navigate', 'params': {'url': url}
-                }))
-                await ws.recv()
+            if radius_px > 0:
+                # 4x supersampled rounded mask for buttery-smooth transparent corners
+                scale = 4
+                big_mask = Image.new("L", (target_width * scale, new_h * scale), 0)
+                draw = ImageDraw.Draw(big_mask)
+                draw.rounded_rectangle(
+                    [(0, 0), (target_width * scale - 1, new_h * scale - 1)],
+                    radius=int(radius_px * scale),
+                    fill=255,
+                )
+                smooth_mask = big_mask.resize((target_width, new_h), Image.Resampling.LANCZOS)
+                resized.putalpha(smooth_mask)
 
-                # Wait for web fonts (Space Grotesk) to load and animations to settle
-                await asyncio.sleep(wait_sec)
-
-                await ws.send(json.dumps({'id': 3, 'method': 'Page.captureScreenshot', 'params': {'format': 'png'}}))
-                while True:
-                    msg = json.loads(await ws.recv())
-                    if msg.get('id') == 3:
-                        data = base64.b64decode(msg['result']['data'])
-                        out_png.parent.mkdir(parents=True, exist_ok=True)
-                        with open(out_png, 'wb') as f:
-                            f.write(data)
-                        break
-            print(f"  [+] Captured: {out_png.name} ({width}x{height}) [font & animation settled]")
-        finally:
-            proc.terminate()
-            proc.wait()
-
-
-def convert_webp(src_png: Path, out_webp: Path, target_width: int = 1760, quality: int = 95) -> None:
-    with Image.open(src_png) as img:
-        w, h = img.size
-        new_h = int(h * (target_width / w))
-        resized = img.resize((target_width, new_h), Image.Resampling.LANCZOS)
-        out_webp.parent.mkdir(parents=True, exist_ok=True)
-        resized.save(out_webp, "WEBP", quality=quality, method=6)
-    print(f"  [✦] Saved WebP: {out_webp.name} ({target_width}x{new_h}) [{out_webp.stat().st_size // 1024} KB]")
+            out_path = OUT / out_webp_name
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            resized.save(out_path, "WEBP", quality=quality, method=6)
+            print(f"  [✦] Saved Transparent WebP: {out_webp_name} ({target_width}x{new_h}) [{out_path.stat().st_size // 1024} KB]")
 
 
 def main():
     print("=" * 60)
     print("ESTIN Average Calculator · README Asset Pipeline")
-    print("Using official website font: Space Grotesk")
+    print("Font: Space Grotesk · Corners: 100% Transparent")
     print("=" * 60)
 
     SHOTS.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
 
-    # 1. Start local server to render HTML cards
-    print("\n1. Starting local server for card rendering...")
-    httpd = start_server()
-    time.sleep(1)
+    print("\n1. Rendering banner card with Space Grotesk & transparent corners...")
+    render_card_with_transparent_corners("banner.html", "banner.webp", 1280, 440, radius_px=33)
 
-    try:
-        # Render banner card with Space Grotesk font settling
-        print("\n2. Rendering banner with Space Grotesk...")
-        asyncio.run(capture_cdp(f"http://127.0.0.1:{PORT}/banner.html", SHOTS / "banner.png", 1280, 440, wait_sec=4))
-        convert_webp(SHOTS / "banner.png", OUT / "banner.webp", target_width=1760, quality=95)
-
-        # Render stats card
-        print("\n3. Rendering stats with Space Grotesk...")
-        asyncio.run(capture_cdp(f"http://127.0.0.1:{PORT}/stats.html", SHOTS / "stats.png", 1280, 300, wait_sec=3))
-        convert_webp(SHOTS / "stats.png", OUT / "stats.webp", target_width=1760, quality=95)
-
-        # Cleanup shots directory
-        for p in [SHOTS / "banner.png", SHOTS / "stats.png"]:
-            if p.exists():
-                p.unlink()
-
-    finally:
-        httpd.shutdown()
+    print("\n2. Rendering stats card with Space Grotesk & transparent corners...")
+    render_card_with_transparent_corners("stats.html", "stats.webp", 1280, 300, radius_px=33)
 
     print("\n" + "=" * 60)
     print("Asset generation complete!")
