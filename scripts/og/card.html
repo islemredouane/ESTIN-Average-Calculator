@@ -200,27 +200,31 @@
   .footer-row {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 10px;
     margin-top: auto;
+    white-space: nowrap;
+  }
+  .footer-row > * {
+    flex-shrink: 0;
   }
   .domain-badge {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    margin-right: 4px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
+    font-size: 12.5px;
     font-weight: 600;
     color: #E2E8F0;
-    letter-spacing: 0.5px;
   }
   .domain-bar {
-    width: 36px;
+    width: 24px;
     height: 3px;
     background: linear-gradient(90deg, #8B5CF6, #EC4899);
     border-radius: 2px;
   }
   .feature-pill {
-    padding: 5px 12px;
+    padding: 5px 10px;
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.1);
