@@ -1,12 +1,13 @@
 <!doctype html>
 <!-- ESTIN Average Calculator README Banner.
-     Rendered to ../banner.webp by scripts/render-readme-assets.py (1280x440 at 2x). -->
+     Rendered to ../banner.webp by scripts/render-readme-assets.py (1280x440 at 2x).
+     Exclusively uses the website's signature font: Space Grotesk. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg-base: #030712;
@@ -20,138 +21,281 @@
     --silver-muted: #94a3b8;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 1280px; height: 440px; background: transparent; }
+  html, body {
+    width: 1280px;
+    height: 440px;
+    background: transparent;
+    font-family: 'Space Grotesk', -apple-system, sans-serif;
+  }
 
   .banner {
-    position: relative; width: 1280px; height: 440px; border-radius: 24px; overflow: hidden;
-    background: var(--bg-base); border: 1px solid rgba(139, 92, 246, 0.22);
-    font-family: 'Inter', system-ui, sans-serif; color: #fff;
+    position: relative;
+    width: 1280px;
+    height: 440px;
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--bg-base);
+    border: 1px solid rgba(139, 92, 246, 0.28);
+    font-family: 'Space Grotesk', -apple-system, sans-serif;
+    color: #fff;
     box-shadow: 0 40px 100px rgba(3, 7, 18, 0.95);
   }
 
   /* Ambient glowing cosmic auras */
   .glow-a {
-    position: absolute; width: 620px; height: 620px; right: 180px; top: -200px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.32) 0%, transparent 68%); pointer-events: none;
+    position: absolute;
+    width: 650px;
+    height: 650px;
+    right: 160px;
+    top: -220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, transparent 68%);
+    pointer-events: none;
   }
   .glow-b {
-    position: absolute; width: 500px; height: 500px; left: -100px; bottom: -180px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, transparent 65%); pointer-events: none;
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    left: -120px;
+    bottom: -190px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.22) 0%, transparent 65%);
+    pointer-events: none;
   }
   .glow-c {
-    position: absolute; width: 440px; height: 440px; right: -80px; bottom: -120px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(96, 165, 250, 0.22) 0%, transparent 65%); pointer-events: none;
+    position: absolute;
+    width: 460px;
+    height: 460px;
+    right: -80px;
+    bottom: -120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.22) 0%, transparent 65%);
+    pointer-events: none;
   }
 
   /* Dot Grid overlay */
   .dots {
-    position: absolute; inset: 0; pointer-events: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
     background-image: radial-gradient(circle, rgba(139, 92, 246, 0.22) 1.2px, transparent 1.2px);
     background-size: 28px 28px;
+    -webkit-mask-image: radial-gradient(ellipse at 45% 50%, #000 30%, transparent 85%);
+    mask-image: radial-gradient(ellipse at 45% 50%, #000 30%, transparent 85%);
   }
 
   .content {
-    position: absolute; left: 70px; top: 0; bottom: 0; display: flex; flex-direction: column;
-    justify-content: center; max-width: 680px; z-index: 2;
+    position: absolute;
+    left: 70px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 680px;
+    z-index: 2;
   }
 
   .badge-row {
-    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
   }
   .badge {
-    display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px;
-    background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.4);
-    border-radius: 9999px; color: #d8b4fe; font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(139, 92, 246, 0.14);
+    border: 1px solid rgba(139, 92, 246, 0.45);
+    border-radius: 9999px;
+    color: #e9d5ff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
   .badge .dot {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); box-shadow: 0 0 10px var(--emerald);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--emerald);
+    box-shadow: 0 0 10px var(--emerald);
   }
   .school-tag {
-    color: var(--silver-muted); font-size: 12px; font-family: 'JetBrains Mono', monospace; font-weight: 500;
+    color: var(--silver-muted);
+    font-size: 13px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
   }
 
   h1 {
-    font-family: 'Space Grotesk', sans-serif; font-size: 52px; font-weight: 800; line-height: 1.08;
-    letter-spacing: -0.03em; color: #ffffff; margin-bottom: 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 54px;
+    font-weight: 800;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    color: #ffffff;
+    margin-bottom: 14px;
   }
   .gradient-text {
     background: linear-gradient(135deg, #c084fc 0%, #f472b6 50%, #60a5fa 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   p.tagline {
-    font-size: 17px; line-height: 1.5; color: var(--silver-muted); margin-bottom: 26px; font-weight: 400;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--silver-muted);
+    margin-bottom: 26px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
   }
-  p.tagline b { color: #f8fafc; font-weight: 600; }
+  p.tagline b {
+    color: #f8fafc;
+    font-weight: 600;
+  }
 
   .chips {
-    display: flex; flex-wrap: wrap; gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
   .chip {
-    padding: 6px 12px; border-radius: 8px; background: rgba(22, 27, 34, 0.7);
-    border: 1px solid rgba(148, 163, 184, 0.16); color: #cbd5e1; font-size: 12px; font-weight: 500;
-    display: flex; align-items: center; gap: 6px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: rgba(22, 27, 34, 0.75);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    color: #cbd5e1;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: -0.01em;
   }
-  .chip svg { width: 14px; height: 14px; fill: currentColor; }
 
   /* Right floating showcase card */
   .card-wrap {
-    position: absolute; right: 70px; top: 50%; transform: translateY(-50%);
-    width: 440px; z-index: 2;
+    position: absolute;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 440px;
+    z-index: 2;
   }
   .hud-card {
-    background: rgba(13, 17, 23, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(139, 92, 246, 0.35); border-radius: 20px; padding: 26px 28px;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 50px rgba(139, 92, 246, 0.18);
+    background: rgba(13, 17, 23, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.38);
+    border-radius: 20px;
+    padding: 26px 28px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 50px rgba(139, 92, 246, 0.2);
+    font-family: 'Space Grotesk', sans-serif;
   }
   .hud-header {
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 14px;
   }
   .hud-sem {
-    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+    letter-spacing: -0.02em;
+    color: #fff;
   }
   .hud-status {
-    padding: 4px 10px; border-radius: 9999px; background: rgba(16, 185, 129, 0.14);
-    border: 1px solid rgba(16, 185, 129, 0.35); color: #34d399; font-size: 11px;
-    font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    background: rgba(16, 185, 129, 0.16);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #34d399;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
   .hud-score-row {
-    display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 16px;
   }
   .hud-label {
-    font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--silver-muted); font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--silver-muted);
+    font-weight: 700;
   }
   .hud-score {
-    font-family: 'Space Grotesk', sans-serif; font-size: 38px; font-weight: 800; color: #34d399;
-    line-height: 1; letter-spacing: -0.02em;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: #34d399;
+    line-height: 1;
+    letter-spacing: -0.03em;
   }
-  .hud-score small { font-size: 18px; color: var(--silver-muted); font-weight: 600; }
+  .hud-score small {
+    font-size: 18px;
+    color: var(--silver-muted);
+    font-weight: 600;
+  }
 
   .hud-bar-bg {
-    width: 100%; height: 8px; border-radius: 9999px; background: rgba(255, 255, 255, 0.08);
-    overflow: hidden; margin-bottom: 18px;
+    width: 100%;
+    height: 8px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    margin-bottom: 18px;
   }
   .hud-bar-fill {
-    width: 100%; height: 100%; border-radius: 9999px;
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
     background: linear-gradient(90deg, #10b981, #34d399);
     box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
   }
 
   .hud-stats-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
   .hud-stat-box {
-    background: rgba(22, 27, 34, 0.6); border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px; padding: 10px 14px;
+    background: rgba(22, 27, 34, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-family: 'Space Grotesk', sans-serif;
   }
   .hud-stat-box b {
-    display: block; font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #fff;
+    display: block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
   }
   .hud-stat-box span {
-    font-size: 11px; color: var(--silver-muted); font-weight: 500;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11.5px;
+    color: var(--silver-muted);
+    font-weight: 500;
   }
 </style>
 </head>
@@ -164,7 +308,7 @@
 
     <div class="content">
       <div class="badge-row">
-        <div class="badge"><span class="dot"></span>ESTIN BÉJAÏA · 2026</div>
+        <div class="badge"><span class="dot"></span>ESTIN BÉJAÏA · 2026/27</div>
         <span class="school-tag">École Supérieure en Informatique</span>
       </div>
 

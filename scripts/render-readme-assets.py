@@ -1,4 +1,7 @@
-"""Render ESTIN Average Calculator README images with headless Edge/Chrome.
+"""Render ESTIN Average Calculator README images with headless Edge/Chrome using CDP.
+
+Ensures Google Fonts (Space Grotesk) and Framer Motion / Three.js animations
+fully settle before taking 2x retina screenshots.
 
 Usage:
     python scripts/render-readme-assets.py
@@ -61,7 +64,7 @@ def start_server() -> socketserver.TCPServer:
     return httpd
 
 
-async def capture_cdp(url: str, out_png: Path, width: int, height: int, mobile: bool = False, wait_sec: int = 6):
+async def capture_cdp(url: str, out_png: Path, width: int, height: int, mobile: bool = False, wait_sec: int = 4):
     browser = find_browser()
     with tempfile.TemporaryDirectory() as profile:
         proc = subprocess.Popen([
@@ -77,26 +80,19 @@ async def capture_cdp(url: str, out_png: Path, width: int, height: int, mobile: 
             page = next(p for p in pages if p.get('type') == 'page')
             ws_url = page['webSocketDebuggerUrl']
 
-            async with websockets.connect(ws_url, max_size=20*1024*1024) as ws:
-                if mobile:
-                    await ws.send(json.dumps({
-                        'id': 1, 'method': 'Emulation.setDeviceMetricsOverride',
-                        'params': {'width': width, 'height': height, 'deviceScaleFactor': 2, 'mobile': True}
-                    }))
-                    await ws.recv()
-                else:
-                    await ws.send(json.dumps({
-                        'id': 1, 'method': 'Emulation.setDeviceMetricsOverride',
-                        'params': {'width': width, 'height': height, 'deviceScaleFactor': 2, 'mobile': False}
-                    }))
-                    await ws.recv()
+            async with websockets.connect(ws_url, max_size=25*1024*1024) as ws:
+                await ws.send(json.dumps({
+                    'id': 1, 'method': 'Emulation.setDeviceMetricsOverride',
+                    'params': {'width': width, 'height': height, 'deviceScaleFactor': 2, 'mobile': mobile}
+                }))
+                await ws.recv()
 
                 await ws.send(json.dumps({
                     'id': 2, 'method': 'Page.navigate', 'params': {'url': url}
                 }))
                 await ws.recv()
 
-                print(f"  [⏳] Waiting {wait_sec}s for full Framer Motion & Three.js animations ({width}x{height})...")
+                # Wait for web fonts (Space Grotesk) to load and animations to settle
                 await asyncio.sleep(wait_sec)
 
                 await ws.send(json.dumps({'id': 3, 'method': 'Page.captureScreenshot', 'params': {'format': 'png'}}))
@@ -108,31 +104,13 @@ async def capture_cdp(url: str, out_png: Path, width: int, height: int, mobile: 
                         with open(out_png, 'wb') as f:
                             f.write(data)
                         break
-            print(f"  [+] Captured: {out_png.name} ({width}x{height})")
+            print(f"  [+] Captured: {out_png.name} ({width}x{height}) [font & animation settled]")
         finally:
             proc.terminate()
             proc.wait()
 
 
-def shoot_card(url: str, out: Path, width: int, height: int) -> None:
-    out.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory() as profile:
-        args = [
-            find_browser(),
-            "--headless=new",
-            f"--user-data-dir={profile}",
-            "--hide-scrollbars",
-            "--force-device-scale-factor=2",
-            f"--window-size={width},{height}",
-            "--default-background-color=00000000",
-            f"--screenshot={str(out.resolve())}",
-            url
-        ]
-        subprocess.run(args, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=60)
-    print(f"  [+] Card rendered: {out.name} ({width}x{height})")
-
-
-def convert_webp(src_png: Path, out_webp: Path, target_width: int = 1760, quality: int = 94) -> None:
+def convert_webp(src_png: Path, out_webp: Path, target_width: int = 1760, quality: int = 95) -> None:
     with Image.open(src_png) as img:
         w, h = img.size
         new_h = int(h * (target_width / w))
@@ -145,40 +123,30 @@ def convert_webp(src_png: Path, out_webp: Path, target_width: int = 1760, qualit
 def main():
     print("=" * 60)
     print("ESTIN Average Calculator · README Asset Pipeline")
+    print("Using official website font: Space Grotesk")
     print("=" * 60)
 
     SHOTS.mkdir(parents=True, exist_ok=True)
     OUT.mkdir(parents=True, exist_ok=True)
 
-    # 1. Capture live UI screenshots with full animation settling
-    print("\n1. Capturing live UI from Vercel (waiting for full hero content)...")
-    asyncio.run(capture_cdp(LIVE_URL, SHOTS / "desktop.png", 1440, 900, mobile=False, wait_sec=6))
-    asyncio.run(capture_cdp(LIVE_URL, SHOTS / "mobile.png", 390, 844, mobile=True, wait_sec=6))
-
-    # 2. Start local server to render HTML cards
-    print("\n2. Starting local server for card rendering...")
+    # 1. Start local server to render HTML cards
+    print("\n1. Starting local server for card rendering...")
     httpd = start_server()
     time.sleep(1)
 
     try:
-        cards = [
-            ("banner.html", "banner.png", 1280, 440),
-            ("stats.html", "stats.png", 1280, 300),
-            ("preview.html", "preview.png", 1280, 740),
-        ]
+        # Render banner card with Space Grotesk font settling
+        print("\n2. Rendering banner with Space Grotesk...")
+        asyncio.run(capture_cdp(f"http://127.0.0.1:{PORT}/banner.html", SHOTS / "banner.png", 1280, 440, wait_sec=4))
+        convert_webp(SHOTS / "banner.png", OUT / "banner.webp", target_width=1760, quality=95)
 
-        print("\n3. Rendering cards via headless browser...")
-        for html_name, png_name, w, h in cards:
-            url = f"http://127.0.0.1:{PORT}/{html_name}"
-            shoot_card(url, SHOTS / png_name, w, h)
+        # Render stats card
+        print("\n3. Rendering stats with Space Grotesk...")
+        asyncio.run(capture_cdp(f"http://127.0.0.1:{PORT}/stats.html", SHOTS / "stats.png", 1280, 300, wait_sec=3))
+        convert_webp(SHOTS / "stats.png", OUT / "stats.webp", target_width=1760, quality=95)
 
-        print("\n4. Converting to optimized WebP...")
-        convert_webp(SHOTS / "banner.png", OUT / "banner.webp", target_width=1760, quality=94)
-        convert_webp(SHOTS / "stats.png", OUT / "stats.webp", target_width=1760, quality=94)
-        convert_webp(SHOTS / "preview.png", OUT / "preview.webp", target_width=1760, quality=94)
-
-        # Remove unneeded intermediate PNGs
-        for p in [SHOTS / "banner.png", SHOTS / "stats.png", SHOTS / "preview.png"]:
+        # Cleanup shots directory
+        for p in [SHOTS / "banner.png", SHOTS / "stats.png"]:
             if p.exists():
                 p.unlink()
 
