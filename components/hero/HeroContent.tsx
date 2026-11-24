@@ -1,66 +1,11 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useCalculatorStore } from '@/store/calculatorStore'
-import type { SemesterId } from '@/lib/data/types'
-
-const MAIN_SEMESTERS: { id: SemesterId; label: string }[] = [
-  { id: '1CP-S1', label: '1CP - S1' },
-  { id: '1CP-S2', label: '1CP - S2' },
-  { id: '2CP-S1', label: '2CP - S1' },
-  { id: '2CP-S2', label: '2CP - S2' },
-  { id: '1CS-S1', label: '1CS - S1' },
-  { id: '1CS-S2', label: '1CS - S2' },
-]
-
-const CS2_SEMESTERS: { id: SemesterId; label: string }[] = [
-  { id: '2CS-IA-S1', label: '2CS IA - S1' },
-  { id: '2CS-IA-S2', label: '2CS IA - S2' },
-  { id: '2CS-CS-S1', label: '2CS Cyber - S1' },
-  { id: '2CS-CS-S2', label: '2CS Cyber - S2' },
-]
-
-function SemesterButton({
-  sem,
-  index,
-  active,
-  onClick,
-}: {
-  sem: { id: SemesterId; label: string }
-  index: number
-  active: boolean
-  onClick: () => void
-}) {
-  return (
-    <motion.button
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.3 + index * 0.07 }}
-      whileHover={{ y: -4, scale: 1.03 }}
-      whileTap={{ scale: 0.96, y: 0 }}
-      onClick={onClick}
-      className={`px-6 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 border ${
-        active
-          ? 'bg-purple-900/20 border-purple-500/50 text-white'
-          : 'bg-slate-900/60 border-slate-700 text-slate-300 hover:border-purple-500/50 hover:text-white hover:bg-purple-900/20'
-      }`}
-    >
-      {sem.label}
-    </motion.button>
-  )
-}
+import SemesterPicker from './SemesterPicker'
 
 export default function HeroContent() {
-  const currentSemester = useCalculatorStore((s) => s.currentSemester)
-  const setSemester = useCalculatorStore((s) => s.setSemester)
-
   const scrollToCalculator = () => {
     document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const handleSelect = (id: SemesterId) => {
-    setSemester(id)
-    setTimeout(scrollToCalculator, 300)
   }
 
   return (
@@ -97,40 +42,13 @@ export default function HeroContent() {
         Calculate your semester&apos;s average based on the official grading formulas.
       </motion.p>
 
-      {/* Main semester buttons (1CP / 2CP / 1CS) — 3 per row */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, delay: 0.3 }}
-        className="flex flex-wrap justify-center gap-3 mb-3"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="relative z-20 w-full mb-8"
       >
-        {MAIN_SEMESTERS.map((sem, i) => (
-          <SemesterButton
-            key={sem.id}
-            sem={sem}
-            index={i}
-            active={currentSemester === sem.id}
-            onClick={() => handleSelect(sem.id)}
-          />
-        ))}
-      </motion.div>
-
-      {/* 2CS buttons — 2 per row */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, delay: 0.6 }}
-        className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8"
-      >
-        {CS2_SEMESTERS.map((sem, i) => (
-          <SemesterButton
-            key={sem.id}
-            sem={sem}
-            index={MAIN_SEMESTERS.length + i}
-            active={currentSemester === sem.id}
-            onClick={() => handleSelect(sem.id)}
-          />
-        ))}
+        <SemesterPicker onPicked={() => setTimeout(scrollToCalculator, 300)} />
       </motion.div>
 
       {/* Scroll Indicator */}
